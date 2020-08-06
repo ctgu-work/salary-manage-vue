@@ -1,26 +1,28 @@
 <template>
   <div id="poster">
-    <el-form ref="form" :model="form" class="login-box">
+    <el-form ref="form" :model="form" :rules="rule" class="login-box">
       <h3 class="login-title">登录系统</h3>
-      <el-form-item label="">
+      <el-form-item prop="username">
         <el-input
           suffix-icon="el-icon-user-solid"
           type="text"
           placeholder="账号"
           v-model="form.username"
+          :validate-event="false"
         ></el-input>
       </el-form-item>
-      <el-form-item label="">
+      <el-form-item prop="password">
         <el-input
           suffix-icon="el-icon-view"
           type="password"
           placeholder="密码"
           v-model="form.password"
+          :validate-event="false"
         ></el-input>
       </el-form-item>
       <p v-if="msg!=''" class="error_msg">用户名或密码错误！</p>
       <el-form-item>
-        <el-button class="login-button" type="primary" @click="onSubmit"
+        <el-button class="login-button" type="primary" @click="onSubmit(form)"
           >登录</el-button
         >
       </el-form-item>
@@ -32,10 +34,19 @@ import { setToken } from "@/utils/common";
 export default {
   data() {
     return {
-      msg: "test",
+      msg: "",
       form: {
         username: "",
         password: ""
+      },
+      rule: {
+        username: [
+          {required: true, message: '请输入姓名'}
+        ],
+        password: [
+          {required: true, message: '请输入密码'},
+          {min: 6, max: 10, message: '密码长度为6-10位'}
+        ]
       }
     };
   },
@@ -45,7 +56,14 @@ export default {
       this.$router.push("/");
     },
     onSubmit() {
-      console.log("submit!");
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          // 向后台发送请求
+          console.log("11");      
+        } else {
+
+        }
+      })
     }
   }
 };
