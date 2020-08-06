@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Layout from "@/views/layout/App.vue";
-import ArticleManage from "./articleManage";
+// import ArticleManage from "./articleManage";
+import Login from "../views/login/Login"
 
 Vue.use(VueRouter);
 
@@ -25,17 +26,23 @@ const routes = [
       }
     ]
   },
-  ArticleManage,
+  // ArticleManage,
+  // {
+  //   path: "/login",
+  //   name: "Login",
+  //   meta: {
+  //     title: "后台登录",
+  //     keepAlive: false
+  //   },
+  //   components: {
+  //     blank: resolve => require(["@/views/login/Login.vue"], resolve)
+  //   }
+  // },
   {
+    // 登录页
     path: "/login",
     name: "Login",
-    meta: {
-      title: "后台登录",
-      keepAlive: false
-    },
-    components: {
-      blank: resolve => require(["@/views/login/Login.vue"], resolve)
-    }
+    component: Login
   }
 ];
 
