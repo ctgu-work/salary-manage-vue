@@ -59,11 +59,13 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           // 向后台发送请求
-          console.log("11");      
+          console.log("11");
+         
         } else {
-
+          //就像用户提示发生错误的消息
         }
       })
+      
     }
   }
 };
