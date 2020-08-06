@@ -9,6 +9,7 @@ import "@/utils/v-auth.js";
 import { getToken } from "@/utils/common";
 import "./components";
 
+
 Vue.config.productionTip = false;
 Vue.prototype.GlobalCfg = Config;
 Vue.use(elementUi);
@@ -29,3 +30,14 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount("#app");
+
+ 
+// /* eslint-disable no-new */
+// new Vue({
+//   el: '#app',
+//   router,
+//   store,
+//  //很重要，别忘记
+//   components: { App },
+//   template: '<App/>'
+// })

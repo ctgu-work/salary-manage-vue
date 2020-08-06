@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Layout from "@/views/layout/App.vue";
-import ArticleManage from "./articleManage";
+import BasicManage from "./basicManage";
 
 Vue.use(VueRouter);
 
@@ -25,7 +25,7 @@ const routes = [
       }
     ]
   },
-  ArticleManage,
+  BasicManage,
   {
     path: "/login",
     name: "Login",
