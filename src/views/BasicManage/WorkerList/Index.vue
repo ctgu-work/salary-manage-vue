@@ -2,7 +2,7 @@
   <div>
     <ToolBar>
       <div>
-        <el-button type="primary" size="small" @click="showEditDialog = true"
+        <el-button type="primary" size="small" @click="gotolink()"
           >添加</el-button
         >
         <el-button type="primary" size="small" @click="exportTable"
@@ -79,7 +79,7 @@
 import { topics } from "@/api/BasicManage/list";
 import { exportCvsTable } from "@/utils/cvs";
 import { resetObject } from "@/utils/common";
-import Edit from "./Edit.vue";
+// import Edit from "./Edit.vue";
 export default {
   data() {
     return {
@@ -87,7 +87,6 @@ export default {
         title: "",
         type: ""
       },
-      showEditDialog: false,
       tableData: []
     };
   },
@@ -101,6 +100,14 @@ export default {
   methods: {
     routeDemo() {
       this.$message.info("待添加");
+    },
+    gotolink(){
+ 
+          //点击跳转至上次浏览页面
+         // this.$router.go(-1)
+ 
+          //指定跳转地址
+          this.$router.replace('/worker/addwork')
     },
     exportTable() {
       exportCvsTable(
@@ -143,6 +150,6 @@ export default {
         .catch(() => {});
     }
   },
-  components: { Edit }
+  // components: { Edit }
 };
 </script>

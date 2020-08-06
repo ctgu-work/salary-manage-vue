@@ -6,17 +6,17 @@ export default {
     courseCardList: {
       name: "员工信息管理",
       permissionsKey: "",
-      path: "/work_manage/list"
+      path: "/info/stuff"
     },
     departCardList: {
       name: "部门管理",
       permissionsKey: "",
-      path: "/depart_manage/list"
+      path: "/info/depart"
     },
     staffCardList: {
       name: "岗位管理",
       permissionsKey: "",
-      path: "/staff_manage/list"
+      path: "/info/jobs"
     }
   }
 };
