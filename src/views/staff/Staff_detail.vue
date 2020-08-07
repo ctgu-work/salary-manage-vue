@@ -189,9 +189,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.body {
-}
+<style lang="scss" scoped>
 .el-col {
   min-height: 1px;
 }
@@ -199,8 +197,6 @@ export default {
   width: 100%;
   background-color: #409eff;
   height: 700px;
-  //   box-shadow: 0 2px 12px 0 #1c86c6;
-  //   text-align: center;
 }
 .left-1 {
   width: 100%;
