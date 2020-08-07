@@ -27,5 +27,14 @@ export default {
       component: (resolve) =>
         require(["@/views/BasicManage/Department/Index.vue"], resolve),
     },
+    {
+      path: "jobs",
+      name: "JobsManage",
+      meta: {
+        title: "部门信息管理",
+      },
+      component: (resolve) =>
+        require(["@/views/BasicManage/Jobs/Index.vue"], resolve),
+    },
   ],
 };
