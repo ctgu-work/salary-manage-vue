@@ -27,9 +27,7 @@ const routes = [
       }
     ]
   },
-// <<<<<<< HEAD
   BasicManage,
-// =======
   // ArticleManage,
   // {
   //   path: "/login",
@@ -42,7 +40,6 @@ const routes = [
   //     blank: resolve => require(["@/views/login/Login.vue"], resolve)
   //   }
   // },
-// >>>>>>> b5103c99584042d2084c691cee4439fea4071a62
   {
     // 登录页
     path: "/login",
