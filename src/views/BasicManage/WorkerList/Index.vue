@@ -3,7 +3,7 @@
     <ToolBar>
       <div>
         <el-button type="primary" size="small" @click="showEditDialog = true"
-          >编辑添加，字段各种规则验证示例</el-button
+          >添加</el-button
         >
         <el-button type="primary" size="small" @click="exportTable"
           >本地导出表格</el-button
@@ -11,7 +11,7 @@
       </div>
       <div>
         <el-input
-          placeholder="请输入文章标题"
+          placeholder="请输入员工姓名"
           size="small"
           style="width: 140px"
           v-model="searchParams.title"
@@ -24,8 +24,8 @@
           placeholder="请选择类型"
           size="small"
         >
-          <el-option label="招聘信息" value="1"></el-option>
-          <el-option label="技术交流" value="2"></el-option>
+          <el-option label="身份证号" value="1"></el-option>
+          <el-option label="手机号" value="2"></el-option>
         </el-select>
         <el-button type="success" size="small" @click="refresh()"
           >查询</el-button
@@ -36,7 +36,7 @@
       </div>
     </ToolBar>
     <el-table :data="tableData" border style="width: 100%">
-      <el-table-column prop="title" label="文章标题"> </el-table-column>
+      <el-table-column prop="staff_id" label="员工ID"> </el-table-column>
       <el-table-column prop="" label="作者">
         <template slot-scope="s">
           {{ s.row.author.loginname }}
@@ -47,7 +47,7 @@
       <el-table-column fixed="right" label="操作" width="240">
         <div slot-scope="s">
           <el-button type="primary" size="small" @click="routeDemo(s.row)"
-            >多层级路由面包屑示例</el-button
+            >更新</el-button
           >
           <el-button type="danger" size="small" @click="removeItem(s.row)"
             >删除</el-button
@@ -55,6 +55,16 @@
         </div>
       </el-table-column>
     </el-table>
+    <!-- <div class="block" style="height:70px;">
+  <el-pagination
+    @size-change="sizeChange"
+    @current-change="currentChange"
+    :page-sizes="[10,20,30,40]"
+    :page-size="page.pageSize"
+    layout="total, sizes, prev, pager, next"
+    :total="page.totalRecords">
+  </el-pagination>
+    </div> -->
     <!--    <Pagination-->
     <!--      :params="searchParams"-->
     <!--      :requestFunc="requestFunc"-->
@@ -66,7 +76,7 @@
 </template>
 
 <script>
-import { topics } from "@/api/articleManage/list";
+import { topics } from "@/api/BasicManage/list";
 import { exportCvsTable } from "@/utils/cvs";
 import { resetObject } from "@/utils/common";
 import Edit from "./Edit.vue";

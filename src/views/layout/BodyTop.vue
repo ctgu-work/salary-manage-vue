@@ -4,6 +4,7 @@
       <i class="el-icon-menu"></i>
     </div>
     <div class="right">
+     
       <span class="body-top-btn" @click="screenFullToggle">
         <i class="fa fa-arrows-alt"></i>
       </span>
@@ -54,6 +55,7 @@
 import ScreenFull from "screenfull";
 import { mapState } from "vuex";
 import Menu from "@/menu/index";
+
 export default {
   name: "BodyTop",
   data() {
@@ -77,9 +79,11 @@ export default {
         });
     },
     logout() {}
+    //语言切换
+
   },
   computed: mapState(["system"])
-};
+}
 </script>
 <style lang="scss">
 @import "../../assets/css/variables.scss";
