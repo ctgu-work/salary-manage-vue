@@ -4,7 +4,6 @@ import Layout from "@/views/layout/App.vue";
 import BasicManage from "./basicManage";
 import Login from "../views/login/Login"
 import Staff_detail from "../views/staff/Staff_detail"
-
 Vue.use(VueRouter);
 
 const routes = [
@@ -29,17 +28,17 @@ const routes = [
   },
   BasicManage,
   {
+    //员工信息详情页
+    path: "/staff_detail",
+    name: "Staff_detail",
+    component: Staff_detail
+  },
+  {
     // 登录页
     path: "/login",
     name: "Login",
     component: Login
   },
-  {
-    //员工信息详情页
-    path: "/staff_detail",
-    name: "Staff_detail",
-    component: Staff_detail
-  }
 ];
 
 const originalPush = VueRouter.prototype.push;

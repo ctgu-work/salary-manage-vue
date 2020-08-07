@@ -5,7 +5,8 @@ import request from "@/utils/request.js";
  * @param params
  * @returns {AxiosPromise}
  */
-export function findPosition(params) {
+export function findJob
+(params) {
   return request({
     // closeLoading: true,
     // closeInterceptors: true,

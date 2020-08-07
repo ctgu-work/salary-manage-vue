@@ -189,7 +189,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss"  scoped>
 .body {
 }
 .el-col {
@@ -256,7 +256,7 @@ export default {
 }
 .left-5 {
   width: 100%;
-  //   height: 200px;
+  height: 200px;
   padding: 20px;
 }
 .right {
