@@ -13,7 +13,7 @@
       </el-form-item>
       <el-form-item prop="password">
         <el-input
-          suffix-icon="el-icon-view"
+          suffix-icon="el-icon-lock"
           type="password"
           placeholder="密码"
           v-model="form.password"
