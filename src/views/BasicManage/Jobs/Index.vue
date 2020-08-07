@@ -37,25 +37,17 @@
       <el-table ref="filterTable" :data="tableData" style="width: 100%">
         <el-table-column
           prop="departName"
-          label="部门名称"
+          label="岗位名称"
           sortable
         ></el-table-column>
-        <el-table-column prop="departPhone" label="部门电话"></el-table-column>
+        <el-table-column prop="departPhone" label="对应部门"></el-table-column>
         <el-table-column prop="description" label="部门描述"></el-table-column>
+        <el-table-column prop="type" label="部门类型"></el-table-column>
         <el-table-column
           prop="establishDate"
-          label="建立日期"
+          label="岗位编制"
         ></el-table-column>
-        <el-table-column prop="fax" label="部门传真"></el-table-column>
-        <el-table-column prop="type" label="部门类型"></el-table-column>
-        <el-table-column prop="fatherDepartName" label="父部门">
-          <template slot-scope="scope">
-            <p v-if="scope.row.fatherDepartName != null">
-              {{ scope.row.fatherDepartName }}
-            </p>
-            <p v-else>无</p>
-          </template>
-        </el-table-column>
+        <el-table-column prop="fax" label="岗位类型"></el-table-column>
         <el-table-column>
           <template slot-scope="scope">
             <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"

@@ -4,6 +4,7 @@ import Layout from "@/views/layout/App.vue";
 import BasicManage from "./basicManage";
 import Login from "../views/login/Login"
 import Staff_detail from "../views/staff/Staff_detail"
+import AddWorker from "../views/BasicManage/WorkerList/addWorker"
 Vue.use(VueRouter);
 
 const routes = [
@@ -38,6 +39,12 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login
+  },
+  {
+    // 新增页
+    path: "/addWorker",
+    name: "AddWork",
+    component: AddWorker
   },
 ];
 
