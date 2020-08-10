@@ -3,8 +3,8 @@ import VueRouter from "vue-router";
 import Layout from "@/views/layout/App.vue";
 import BasicManage from "./basicManage";
 import Login from "../views/login/Login"
-
-
+import Staff_detail from "../views/staff/Staff_detail"
+import AddWorker from "../views/BasicManage/WorkerList/addWorker"
 Vue.use(VueRouter);
 
 const routes = [
@@ -28,24 +28,24 @@ const routes = [
     ]
   },
   BasicManage,
-  // ArticleManage,
-  // {
-  //   path: "/login",
-  //   name: "Login",
-  //   meta: {
-  //     title: "后台登录",
-  //     keepAlive: false
-  //   },
-  //   components: {
-  //     blank: resolve => require(["@/views/login/Login.vue"], resolve)
-  //   }
-  // },
+  {
+    //员工信息详情页
+    path: "/staff_detail",
+    name: "Staff_detail",
+    component: Staff_detail
+  },
   {
     // 登录页
     path: "/login",
     name: "Login",
     component: Login
-  }
+  },
+  {
+    // 新增页
+    path: "/addWorker",
+    name: "AddWork",
+    component: AddWorker
+  },
 ];
 
 const originalPush = VueRouter.prototype.push;

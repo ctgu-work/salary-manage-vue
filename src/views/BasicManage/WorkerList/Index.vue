@@ -2,7 +2,7 @@
   <div>
     <ToolBar>
       <div>
-        <el-button type="primary" size="small" @click="showEditDialog = true"
+        <el-button type="primary" size="small" @click="gotolink()"
           >添加</el-button
         >
         <el-button type="primary" size="small" @click="exportTable"
@@ -37,15 +37,22 @@
     </ToolBar>
     <el-table :data="tableData" border style="width: 100%">
       <el-table-column prop="staff_id" label="员工ID"> </el-table-column>
-      <el-table-column prop="" label="作者">
+      <el-table-column prop label="照片">
         <template slot-scope="s">
-          {{ s.row.author.loginname }}
+          <img :src="s.row.avatar" alt />
         </template>
       </el-table-column>
-      <el-table-column prop="visit_count" label="浏览量"></el-table-column>
-      <el-table-column prop="reply_count" label="回复"></el-table-column>
+      <el-table-column prop="id_card" label="身份证号"></el-table-column>
+      <el-table-column prop="position_id" label="所在岗位"></el-table-column>
+      <el-table-column prop="department_id" label="所在部门"></el-table-column>
+      <el-table-column prop="position_id" label="所在岗位"></el-table-column>
+      <el-table-column prop="phone_number" label="电话"></el-table-column>
+      <el-table-column prop="email" label="邮箱"></el-table-column>
       <el-table-column fixed="right" label="操作" width="240">
         <div slot-scope="s">
+          <el-button type="primary" size="small" @click="workerdemo()"
+            >员工详情</el-button
+          >
           <el-button type="primary" size="small" @click="routeDemo(s.row)"
             >更新</el-button
           >
@@ -55,22 +62,7 @@
         </div>
       </el-table-column>
     </el-table>
-    <!-- <div class="block" style="height:70px;">
-  <el-pagination
-    @size-change="sizeChange"
-    @current-change="currentChange"
-    :page-sizes="[10,20,30,40]"
-    :page-size="page.pageSize"
-    layout="total, sizes, prev, pager, next"
-    :total="page.totalRecords">
-  </el-pagination>
-    </div> -->
-    <!--    <Pagination-->
-    <!--      :params="searchParams"-->
-    <!--      :requestFunc="requestFunc"-->
-    <!--      ref="pagination"-->
-    <!--      @returnData="returnData"-->
-    <!--    />-->
+  
     <Edit :showEditDialog="showEditDialog" @close="showEditDialog = false" />
   </div>
 </template>
@@ -79,7 +71,7 @@
 import { topics } from "@/api/BasicManage/list";
 import { exportCvsTable } from "@/utils/cvs";
 import { resetObject } from "@/utils/common";
-import Edit from "./Edit.vue";
+// import Edit from "./Edit.vue";
 export default {
   data() {
     return {
@@ -87,7 +79,6 @@ export default {
         title: "",
         type: ""
       },
-      showEditDialog: false,
       tableData: []
     };
   },
@@ -101,6 +92,22 @@ export default {
   methods: {
     routeDemo() {
       this.$message.info("待添加");
+    },
+    gotolink(){
+ 
+          //点击跳转至上次浏览页面
+         // this.$router.go(-1)
+ 
+          //指定跳转地址
+          this.$router.replace('/worker/addwork')
+    },
+    workerdemo(){
+ 
+          //点击跳转至上次浏览页面
+         // this.$router.go(-1)
+ 
+          //指定跳转地址
+          this.$router.replace('/worker/detail')
     },
     exportTable() {
       exportCvsTable(
@@ -143,6 +150,6 @@ export default {
         .catch(() => {});
     }
   },
-  components: { Edit }
+  // components: { Edit }
 };
 </script>
