@@ -1,5 +1,4 @@
 import Layout from "@/views/layout/App.vue";
-// import { resolve } from "core-js/fn/promise";
 export default {
   path: "/info",
   component: Layout,

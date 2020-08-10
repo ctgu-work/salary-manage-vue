@@ -9,22 +9,21 @@
       </div>
       <div>
         <el-input
-          placeholder="请输入部门名称"
+          placeholder="请输入参数"
           size="small"
           style="width: 140px"
-          v-model="searchParams"
+          v-model="searchParams.title"
           clearable
         ></el-input>
-        <!-- <el-select
+        <el-select
           v-model="searchParams.type"
-          clearable
           style="width: 140px"
           placeholder="请选择类型"
           size="small"
         >
-          <el-option label="身份证号" value="1"></el-option>
-          <el-option label="手机号" value="2"></el-option>
-        </el-select> -->
+          <el-option label="编号" value="id"></el-option>
+          <el-option label="部门名称" value="name"></el-option>
+        </el-select>
         <el-button type="success" size="small" @click="search()"
           >查询</el-button
         >
@@ -35,16 +34,14 @@
     </ToolBar>
     <div>
       <el-table ref="filterTable" :data="tableData" style="width: 100%">
-        <el-table-column
-          prop="departName"
-          label="部门名称"
-          sortable
-        ></el-table-column>
+        <el-table-column prop="departId" label="部门编号"></el-table-column>
+        <el-table-column prop="departName" label="部门名称"></el-table-column>
         <el-table-column prop="departPhone" label="部门电话"></el-table-column>
         <el-table-column prop="description" label="部门描述"></el-table-column>
         <el-table-column
           prop="establishDate"
           label="建立日期"
+          sortable
         ></el-table-column>
         <el-table-column prop="fax" label="部门传真"></el-table-column>
         <el-table-column prop="type" label="部门类型"></el-table-column>
@@ -71,49 +68,92 @@
         </el-table-column>
       </el-table>
     </div>
-    <Edit :showEditDialog="showEditDialog" @close="showEditDialog = false" />
+    <Edit
+      :forms="form"
+      :title="editTitle"
+      :showEditDialog="showEditDialog"
+      @close="showEditDialog = false"
+    />
     <el-pagination
-    layout="prev, pager, next"
-    @current-change="changePage"
-    :total="total"
-    :page-size='pagesize'
+      layout="sizes,prev, pager, next"
+      @current-change="changePage"
+      @size-change="handleSizeChange"
+      :total="total"
+      :page-size="pagesize"
+      :page-sizes="[10, 20, 50, 100]"
     >
-  </el-pagination>
+    </el-pagination>
   </div>
 </template>
 
 <script>
 import { exportCvsTable } from "@/utils/cvs";
 import Edit from "./Edit";
-import { findDepartment } from "@/api/BasicManage/depart";
+import {
+  findDepartment,
+  findDepartmentByParams,
+} from "@/api/BasicManage/depart";
 export default {
   components: { Edit }, //导入组件
   data() {
     return {
       showEditDialog: false,
       tableData: [],
-      searchParams:'',
-      total:0,
-      pagesize:10
+      searchParams: {
+        title: "",
+        type: "name",
+      },
+      total: 0,
+      pagesize: 10,
+      editTitle: "编辑",
+      page: {
+        startPage: 1,
+        pageSize: 10,
+      },
+      form: {
+        departId: -1,
+        departName: "",
+        departPhone: "",
+        departTypeId: 0,
+        description: "",
+        establishDate: 0,
+        fatherDepartId: 0,
+        fatherDepartName: "",
+        fax: "",
+        type: "",
+      },
     };
   },
   methods: {
     //添加部门
     add() {
+      this.editTitle = "添加";
       this.showEditDialog = true;
     },
     handleEdit(index, row) {
+      this.editTitle = "编辑";
       this.showEditDialog = true;
-      console.log(index, row);
+      this.form = row
+      // console.log(index);
+      console.log(row);
+      console.log(this.form);
     },
     handleDelete(index, row) {
       console.log(index, row);
     },
-    search(){
- console.log(this.searchParams)
+    search() {
+      findDepartmentByParams(this.searchParams, this.page)
+        .then((r) => {
+          this.tableData = r.list;
+          this.pagesize = r.pageSize;
+          this.total = r.total;
+        })
+        .catch((e) => {
+          console.dir(e);
+        });
     },
-    clearSearchParams(){
-      this.searchParams=''
+    clearSearchParams() {
+      this.searchParams.title = "";
     },
     // formatter(row, column) {
     formatter(row) {
@@ -126,8 +166,11 @@ export default {
       const property = column["property"];
       return row[property] === value;
     },
-    changePage(){
-      console.log('2')
+    changePage(page) {
+      this.page.startPage = page;
+    },
+    handleSizeChange(size) {
+      this.page.pageSize = size;
     },
     //导出表格
     exportTable() {
@@ -146,11 +189,11 @@ export default {
     },
   },
   created() {
-    findDepartment()
+    findDepartment(this.page)
       .then((r) => {
         this.tableData = r.list;
-        this.pagesize=r.pageSize;
-        this.total = r.total
+        this.pagesize = r.pageSize;
+        this.total = r.total;
       })
       .catch((e) => {
         console.dir(e);
