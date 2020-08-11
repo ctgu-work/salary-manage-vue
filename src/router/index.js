@@ -2,9 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Layout from "@/views/layout/App.vue";
 import BasicManage from "./basicManage";
-import Login from "../views/login/Login"
-import Staff_detail from "../views/staff/Staff_detail"
-import AddWorker from "../views/BasicManage/WorkerList/addWorker"
+import staffDetail from "../views/BasicManage/Staff/StaffDetail"
+import addStaff from "../views/BasicManage/Staff/AddStaff"
 Vue.use(VueRouter);
 
 const routes = [
@@ -30,21 +29,21 @@ const routes = [
   BasicManage,
   {
     //员工信息详情页
-    path: "/staff_detail",
-    name: "Staff_detail",
-    component: Staff_detail
+    path: "/staff/detail",
+    name: "staffDetail",
+    component: staffDetail
   },
-  {
-    // 登录页
-    path: "/login",
-    name: "Login",
-    component: Login
-  },
+  // {
+  //   // 登录页
+  //   path: "/login",
+  //   name: "Login",
+  //   component: Login
+  // },
   {
     // 新增页
-    path: "/addWorker",
-    name: "AddWork",
-    component: AddWorker
+    path: "/staff/add",
+    name: "addStaff",
+    component: addStaff
   },
 ];
 

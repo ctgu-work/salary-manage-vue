@@ -44,7 +44,7 @@ export function findDepartmentByParams(params, page) {
  */
 export function findDepartType(params) {
   return request({
-    url: "detpye/list",
+    url: "depart/list",
     method: "get",
     params: params,
   });

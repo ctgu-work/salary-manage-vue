@@ -2,7 +2,9 @@
   <div>
     <ToolBar>
       <div>
-        <el-button type="primary" size="small" @click="add">添加</el-button>
+        <el-button type="primary" size="small" @click="gotolink()"
+          >添加</el-button
+        >
         <el-button type="primary" size="small" @click="exportTable"
           >本地导出表格</el-button
         >
@@ -17,12 +19,13 @@
         ></el-input>
         <el-select
           v-model="searchParams.type"
+          clearable
           style="width: 140px"
           placeholder="请选择类型"
           size="small"
         >
-          <el-option label="编号" value="id"></el-option>
-          <el-option label="部门名称" value="name"></el-option>
+          <el-option label="姓名" value="staffName"></el-option>
+          <el-option label="ID" value="staffId"></el-option>
         </el-select>
         <el-button type="success" size="small" @click="search()"
           >查询</el-button
@@ -34,38 +37,36 @@
     </ToolBar>
     <div>
       <el-table ref="filterTable" :data="tableData" style="width: 100%">
-        <el-table-column prop="departId" label="部门编号"></el-table-column>
-        <el-table-column prop="departName" label="部门名称"></el-table-column>
-        <el-table-column prop="departPhone" label="部门电话"></el-table-column>
-        <el-table-column prop="description" label="部门描述"></el-table-column>
-        <el-table-column
-          prop="establishDate"
-          label="建立日期"
-          sortable
-        ></el-table-column>
-        <el-table-column prop="fax" label="部门传真"></el-table-column>
-        <el-table-column prop="type" label="部门类型"></el-table-column>
-        <el-table-column prop="fatherDepartName" label="父部门">
-          <template slot-scope="scope">
-            <p v-if="scope.row.fatherDepartName != null">
-              {{ scope.row.fatherDepartName }}
-            </p>
-            <p v-else>无</p>
-          </template>
-        </el-table-column>
+        <el-table-column prop="staffId" label="员工ID"> </el-table-column>
+        <!-- <el-table-column prop label="照片">
+        <template slot-scope="s">
+          <img :src="s.row.avatar" alt />
+        </template>
+      </el-table-column> -->
+        <el-table-column prop="staffName" label="姓名"></el-table-column>
+        <el-table-column prop="positionName" label="所在岗位"></el-table-column>
+        <el-table-column prop="departmentName" label="所在部门"></el-table-column>
+        <el-table-column prop="phoneNumber" label="电话"></el-table-column>
+        <el-table-column prop="email" label="邮箱"></el-table-column>
         <el-table-column>
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <el-button size="mini" @click="handleDetail(scope.row)"
+              >详情</el-button
+            >
+            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+              >编辑</el-button
+            >
             <el-button
               size="mini"
               type="danger"
-              @click="handleDelete(scope.$index, scope.row)"
+              @click="handleDelete(scope.row)"
               >删除</el-button
             >
           </template>
         </el-table-column>
       </el-table>
     </div>
+
     <Edit
       :forms="form"
       :title="editTitle"
@@ -86,11 +87,13 @@
 
 <script>
 import { exportCvsTable } from "@/utils/cvs";
-import Edit from "./Edit";
+import Edit from "./Edit.vue";
 import {
-  findDepartment,
-  findDepartmentByParams,
-} from "@/api/BasicManage/depart";
+  findStaff,
+  findStaffByParams,
+  delStaff,
+} from "@/api/BasicManage/staff";
+
 export default {
   components: { Edit }, //导入组件
   data() {
@@ -99,7 +102,7 @@ export default {
       tableData: [],
       searchParams: {
         title: "",
-        type: "name",
+        type: "staffName",
       },
       total: 0,
       pagesize: 10,
@@ -109,38 +112,93 @@ export default {
         pageSize: 10,
       },
       form: {
-        departId: -1,
-        departName: "",
-        departPhone: "",
-        departTypeId: 0,
-        description: "",
-        establishDate: 0,
-        fatherDepartId: 0,
-        fatherDepartName: "",
-        fax: "",
-        type: "",
+        staffId: -1,
+        avatar:
+          "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+        staffName: "吴恒",
+        sex: "0",
+        birth: "2020-8-7",
+        idCard: "420420402402042044",
+        positionName: "1",
+        departName: "1",
+        workTime: "2020-8-7",
+        attWorkTime: "2020-8-7",
+        employeeForm: "1",
+        personnelSource: "1",
+        politicalType: "1",
+        nation: "1",
+        hometown: "湖北武汉",
+        birthLocation: "湖北武汉",
+        phoneNumber: "13872618179",
+        email: "mr.djg@qq.com",
+        height: "180",
+        bloodType: "1",
+        maritalType: "1",
+        highestEducation: "1",
+        highestDegree: "2",
+        school: "三峡大学",
+        major: "计算机科学与技术",
+        graduateTime: "2020-8-7",
       },
+      staffId: -1,
     };
   },
+
+  // gotolink(){
+
+  //       //点击跳转至上次浏览页面
+  //      // this.$router.go(-1)
+
+  //       //指定跳转地址
+  //       this.$router.replace('/addStaff')
+  // },
+  // workerdemo(){
+
+  //       //点击跳转至上次浏览页面
+  //      // this.$router.go(-1)
+
+  //       //指定跳转地址
+  //       this.$router.replace('/worker/detail')
+  // },
   methods: {
+    gotolink() {
+      //指定跳转地址
+      this.$router.replace("/staff/add");
+    },
     //添加部门
     add() {
       this.editTitle = "添加";
       this.showEditDialog = true;
     },
+    handleDetail(row) {
+      this.form = row;
+      console.log(this.form);
+      this.$router.push({
+        name: "staffDetail",
+        params: {
+          staff: this.form,
+        },
+      });
+    },
     handleEdit(index, row) {
       this.editTitle = "编辑";
       this.showEditDialog = true;
-      this.form = row
+      this.form = row;
       // console.log(index);
       console.log(row);
       console.log(this.form);
     },
-    handleDelete(index, row) {
-      console.log(index, row);
+    handleDelete(row) {
+      delStaff({ staffId: row.staffId })
+        .then(() => {
+          console.log("1111111111");
+        })
+        .catch((e) => {
+          console.dir(e);
+        });
     },
     search() {
-      findDepartmentByParams(this.searchParams, this.page)
+      findStaffByParams(this.searchParams, this.page)
         .then((r) => {
           this.tableData = r.list;
           this.pagesize = r.pageSize;
@@ -187,7 +245,7 @@ export default {
     },
   },
   created() {
-    findDepartment(this.page)
+    findStaff(this.page)
       .then((r) => {
         this.tableData = r.list;
         this.pagesize = r.pageSize;
