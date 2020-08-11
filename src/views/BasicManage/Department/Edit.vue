@@ -130,10 +130,8 @@ export default {
             updateOneDepartment(this.form)
             .then((r) =>{
               console.log(r);
-              
             })
             .catch((e=>{
-              this.$emit('close');
               console.log(e);
             }))
           }else{

@@ -1,4 +1,5 @@
 import basicManage from "./basicManage.js";
+import salary from "./salary.js";
 
 /**
  * 首页
@@ -13,6 +14,7 @@ let home = {
 
 export default {
   home,
-  basicManage
+  basicManage,
+  salary
   //helpCenter
 };

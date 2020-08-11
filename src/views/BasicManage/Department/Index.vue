@@ -116,10 +116,8 @@ export default {
     };
   },
   methods: {
-    editSuccess(res){
-      if(res==='success'){
+    editSuccess(){
          this.getTable();
-      }
     },
     //添加部门
     add() {
@@ -131,9 +129,14 @@ export default {
       this.showEditDialog = true;
       this.form = row;
     },
-    handleDelete(index) {
-      // console.log(index, row);
-      delDepartById(index)
+    handleDelete(index, row) {
+      let params = {departId:row.departId};
+      delDepartById(params)
+      .then((r)=>{
+        console.log(r);
+        this.getTable()
+      })
+      
     },
     search() {
       findDepartmentByParams(this.searchParams, this.page)
@@ -173,11 +176,11 @@ export default {
     },
     changePage(page) {
       this.page.startPage = page;
-      this.getTable();
+      this.getTable()
     },
     handleSizeChange(size) {
       this.page.pageSize = size;
-      this.getTable();
+       this.getTable()
     },
     //导出表格
     exportTable() {

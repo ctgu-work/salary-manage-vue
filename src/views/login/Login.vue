@@ -20,7 +20,7 @@
           :validate-event="false"
         ></el-input>
       </el-form-item>
-      <p v-if="msg!=''" class="error_msg">用户名或密码错误！</p>
+      <p v-if="msg != ''" class="error_msg">用户名或密码错误！</p>
       <el-form-item>
         <el-button class="login-button" type="primary" @click="onSubmit(form)"
           >登录</el-button
@@ -31,43 +31,54 @@
 </template>
 <script>
 import { setToken } from "@/utils/common";
+import { login } from "@/api/login/login";
+// import { Notification, Loading } from "element-ui";
 export default {
   data() {
     return {
       msg: "",
       form: {
         username: "",
-        password: ""
+        password: "",
       },
       rule: {
-        username: [
-          {required: true, message: '请输入姓名'}
-        ],
+        username: [{ required: true, message: "请输入姓名" }],
         password: [
-          {required: true, message: '请输入密码'},
-          {min: 6, max: 10, message: '密码长度为6-10位'}
-        ]
-      }
+          { required: true, message: "请输入密码" },
+          { min: 6, max: 10, message: "密码长度为6-10位" },
+        ],
+      },
     };
   },
   methods: {
     login() {
-      setToken("HJDF844GDFG5D8J7FGHFG5");
+      // setToken("HJDF844GDFG5D8J7FGHFG5");
       this.$router.push("/");
     },
     onSubmit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
           // 向后台发送请求
-          console.log("11");
-         
+          login(this.form)
+            .then((r) => {
+              // console.log(r);
+              setToken(r.Token);
+              this.$router.push("/");
+            })
+            .catch((e) => {
+              // Notification({
+              //   title: "账号或密码错误",
+              //   message: "请重试",
+              //   type: "warning",
+              // });
+              console.log(e);
+            });
         } else {
           //就像用户提示发生错误的消息
         }
-      })
-      
-    }
-  }
+      });
+    },
+  },
 };
 </script>
 
@@ -101,8 +112,8 @@ export default {
   border: none;
   margin-top: 10px;
 }
-.error_msg{
-  color: #F56C6C;
+.error_msg {
+  color: #f56c6c;
   font-size: 14px;
 }
 </style>
