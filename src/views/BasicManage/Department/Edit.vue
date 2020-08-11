@@ -75,7 +75,11 @@ import {
 } from "@/utils/validateRules";
 
 import { fillerLeft, resetObject } from "@/utils/common";
-import { findDepartType, addDepart,updateOneDepartment } from "@/api/BasicManage/depart";
+import {
+  findDepartType,
+  addDepart,
+  updateOneDepartment,
+} from "@/api/BasicManage/depart";
 export default {
   props: {
     title: {
@@ -124,31 +128,27 @@ export default {
             message: "字段验证通过，提交请求，成功后刷新分页！",
             type: "success",
           });
-          // this.$emit("success"); //通知列表分页刷新
-          
-          if(this.title ==='编辑' || this.title ==='Edit') {
+
+          if (this.title === "编辑" || this.title === "Edit") {
             updateOneDepartment(this.form)
-            .then((r) =>{
-              // console.log(r);
-            })
-            .catch((e=>{
-              console.log(e);
-            }))
-          }else{
+              .then((r) => {
+                // console.log(r);
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+          } else {
             addDepart(this.form)
-            .then((r) => {
-              // console.log(r);
-            })
-            .catch((e) => {
-              console.dir(e);
-            });
+              .then((r) => {
+                // console.log(r);
+              })
+              .catch((e) => {
+                console.dir(e);
+              });
           }
-
-          
-
-
-
-            this.$emit('editSuccess','success')
+          this.$emit("editSuccess");
+          this.$emit('close')
+          // this.showEditDialog = false
         } else {
           this.$message({
             message: "请按照提示正确填写内容！",
@@ -166,10 +166,10 @@ export default {
           departId: "",
           departName: "",
           departPhone: "",
-          departTypeId: '',
+          departTypeId: "",
           description: "",
-          establishDate: '',
-          fatherDepartId: '',
+          establishDate: "",
+          fatherDepartId: "",
           fatherDepartName: "",
           fax: "",
           type: "",
