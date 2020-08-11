@@ -131,7 +131,7 @@ export default {
       this.showEditDialog = true;
       this.form = row;
     },
-    handleDelete(index, row) {
+    handleDelete(index) {
       // console.log(index, row);
       delDepartById(index)
     },
@@ -173,9 +173,11 @@ export default {
     },
     changePage(page) {
       this.page.startPage = page;
+      this.getTable();
     },
     handleSizeChange(size) {
       this.page.pageSize = size;
+      this.getTable();
     },
     //导出表格
     exportTable() {

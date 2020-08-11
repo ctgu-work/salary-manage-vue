@@ -74,7 +74,7 @@ import {
   FillerFieldRules,
 } from "@/utils/validateRules";
 
-import { fillerLeft, resetObject } from "@/utils/common";
+import { fillerLeft } from "@/utils/common";//, resetObject
 import { findDepartType, addDepart,updateOneDepartment } from "@/api/BasicManage/depart";
 export default {
   props: {
@@ -129,25 +129,22 @@ export default {
           if(this.title ==='编辑' || this.title ==='Edit') {
             updateOneDepartment(this.form)
             .then((r) =>{
-              // console.log(r);
+              console.log(r);
+              
             })
             .catch((e=>{
+              this.$emit('close');
               console.log(e);
             }))
           }else{
             addDepart(this.form)
             .then((r) => {
-              // console.log(r);
+              console.log(r);
             })
             .catch((e) => {
               console.dir(e);
             });
           }
-
-          
-
-
-
             this.$emit('editSuccess','success')
         } else {
           this.$message({
