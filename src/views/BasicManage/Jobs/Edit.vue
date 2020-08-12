@@ -16,7 +16,7 @@
       :label-width="labelWidth"
     >
       <!-- 岗位名称，岗位编制 部门名称 岗位类型 -->
-      <el-form-item label="岗位名称" prop="positionName">
+      <el-form-item :label="this.$i18n.t('basicManage.position.positionName')" prop="positionName">
         <el-input v-model="form.positionName"></el-input>
       </el-form-item>
       <!-- <el-form-item label="浮点（2位）" prop="test">
@@ -27,12 +27,12 @@
       </el-form-item>-->
 
 
-      <el-form-item label="岗位编制" prop="positionMan">
+      <el-form-item :label="this.$i18n.t('basicManage.position.positionMan')" prop="positionMan">
         <el-input v-model="form.positionMan"></el-input>
       </el-form-item>
 
-       <el-form-item label="部门名字" prop="departName">
-        <el-select v-model="form.departId" placeholder="请选择">
+       <el-form-item :label="this.$i18n.t('basicManage.position.departName')" prop="departName">
+        <el-select v-model="form.departId" :placeholder="this.$i18n.t('btn.selectType')">
           <el-option
             v-for="item in optionc"
             :key="item.departId"
@@ -42,8 +42,8 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="岗位类型" prop="type">
-        <el-select v-model="form.positionTypeId" placeholder="请选择">
+      <el-form-item :label="this.$i18n.t('basicManage.position.type')" prop="type">
+        <el-select v-model="form.positionTypeId" :placeholder="this.$i18n.t('btn.selectType')">
           <el-option
             v-for="item in options"
             :key="item.positionTypeId"
@@ -54,8 +54,8 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="$emit('close')">取 消</el-button>
-      <el-button type="primary" @click="submit">确认</el-button>
+      <el-button @click="$emit('close')">{{$t('btn.cancle')}}</el-button>
+      <el-button type="primary" @click="submit">{{$t('btn.confirm')}}</el-button>
     </div>
   </el-dialog>
 </template>

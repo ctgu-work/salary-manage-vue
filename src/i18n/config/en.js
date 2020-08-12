@@ -24,6 +24,13 @@ const en = {
             type: 'Type',
             fatherDepartName: 'Father-DepartName',
 
+        },
+        position: {//岗位词汇
+            positionId: 'Position-Id',
+            positionName: 'Position-Name',
+            positionMan: 'Position-Man',
+            departName: 'Depart-Name',
+            type: 'Type',
         }
 
     },

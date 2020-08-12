@@ -2,12 +2,12 @@
   <div>
     <ToolBar>
       <div>
-        <el-button type="primary" size="small" @click="add">添加</el-button>
-        <el-button type="primary" size="small" @click="exportTable">本地导出表格</el-button>
+        <el-button type="primary" size="small" @click="add">{{$t('btn.add')}}</el-button>
+        <el-button type="primary" size="small" @click="exportTable">{{$t('btn.exportTable')}}</el-button>
       </div>
       <div>
         <el-input
-          placeholder="请输入部门名称"
+          :placeholder="this.$i18n.t('btn.input')"
           size="small"
           style="width: 140px"
           v-model="searchParams.title"
@@ -20,24 +20,24 @@
           placeholder="请选择类型"
           size="small"
         >
-          <el-option label="岗位名称" value="name"></el-option>
-          <el-option label="岗位类型" value="type1"></el-option>
+          <el-option :label="this.$i18n.t('basicManage.position.positionName')" value="name"></el-option>
+          <el-option :label="this.$i18n.t('basicManage.position.type')" value="type1"></el-option>
         </el-select>
-        <el-button type="success" size="small" @click="search()">查询</el-button>
-        <el-button type="warning" size="small" @click="clearSearchParams()">重置</el-button>
+        <el-button type="success" size="small" @click="search()">{{$t('btn.select')}}</el-button>
+        <el-button type="warning" size="small" @click="clearSearchParams()">{{$t('btn.reset')}}</el-button>
       </div>
     </ToolBar>
     <div>
       <el-table ref="filterTable" :data="tableData" style="width: 100%">
-        <el-table-column prop="positionId" label="岗位编号" sortable></el-table-column>
-        <el-table-column prop="positionName" label="岗位名称"></el-table-column>
-        <el-table-column prop="positionMan" label="岗位编制"></el-table-column>
-        <el-table-column prop="departName" label="部门名字"></el-table-column>
-        <el-table-column prop="type" label="岗位类型"></el-table-column>
+        <el-table-column prop="positionId" :label="this.$i18n.t('basicManage.position.positionId')" sortable></el-table-column>
+        <el-table-column prop="positionName" :label="this.$i18n.t('basicManage.position.positionName')"></el-table-column>
+        <el-table-column prop="positionMan" :label="this.$i18n.t('basicManage.position.positionMan')"></el-table-column>
+        <el-table-column prop="departName" :label="this.$i18n.t('basicManage.position.departName')"></el-table-column>
+        <el-table-column prop="type" :label="this.$i18n.t('basicManage.position.type')"></el-table-column>
         <el-table-column>
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.$index,scope.row)">删除</el-button>
+            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">{{$t('btn.edit')}}</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.$index,scope.row)">{{$t('btn.delete')}}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -75,7 +75,7 @@ export default {
       },
       total: 0,
       pagesize: 10,
-      editTitle: "编辑",
+      editTitle: this.$i18n.t('btn.edit'),
       page: {
         startPage: 1,
         pageSize: 10
@@ -88,11 +88,11 @@ export default {
   methods: {
     //添加部门
     add() {
-      this.editTitle = "添加";
+      this.editTitle = this.$i18n.t('btn.add');
       this.showEditDialog = true;
     },
     handleEdit(index, row) {
-      this.editTitle = "编辑";
+      this.editTitle = this.$i18n.t('btn.edit');
       this.showEditDialog = true;
       this.form = row;
       // console.log(index);
@@ -101,9 +101,9 @@ export default {
     },
     handleDelete(index,row) {
       positiondelete({ positionId: row.positionId })
-      this.$confirm("确定删除?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(this.$i18n.t('btn.delete'), "提示", {
+        confirmButtonText: this.$i18n.t('btn.confirm'),
+        cancelButtonText: this.$i18n.t('btn.cancle'),
         type: "warning"
       })
         .then(r => {

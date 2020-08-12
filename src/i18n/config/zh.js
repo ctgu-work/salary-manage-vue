@@ -25,6 +25,7 @@ const zh = {
             fixed: '固定项目管理',
             atten: '导入项目管理',
             calculate: '计算项目管理',
+            showcalculate:'员工工资展示',
             total: '总工资项目管理'
         }
 
@@ -40,8 +41,14 @@ const zh = {
             type: '部门类型',
             fatherDepartName: '父部门',
 
+        },
+        position: {//岗位词汇
+            positionId: '岗位编号',
+            positionName: '岗位名称',
+            positionMan: '岗位编制',
+            departName: '部门名字',
+            type: '岗位类型',
         }
-
     },
     btn: {//按钮统一再次声明
         add: '添加',
