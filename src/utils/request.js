@@ -43,13 +43,14 @@ service.interceptors.response.use(
       if (res.config.closeInterceptors) {
         return res.data;
       }
+      
       if (res.data.msg!='success') {
-        //removeToken(); //登陆失效执行
-        // Notification({
-        //   title: "数据返回出错",
-        //   message: "请稍后重试",
-        //   type: "warning"
-        // });
+        // removeToken(); //登陆失效执行
+        Notification({
+          title: "数据返回出错",
+          message: "请稍后重试",
+          type: "warning"
+        });
         return Promise.reject("error");
       }
       return res.data.result;

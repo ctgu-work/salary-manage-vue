@@ -4,6 +4,8 @@ import Layout from "@/views/layout/App.vue";
 import BasicManage from "./basicManage";
 import staffDetail from "../views/BasicManage/Staff/StaffDetail"
 import addStaff from "../views/BasicManage/Staff/AddStaff"
+import Login from "../views/admin/Login"
+import Salary from "./salary"
 Vue.use(VueRouter);
 
 const routes = [
@@ -27,18 +29,19 @@ const routes = [
     ]
   },
   BasicManage,
+  Salary,
   {
     //员工信息详情页
     path: "/staff/detail",
     name: "staffDetail",
     component: staffDetail
   },
-  // {
-  //   // 登录页
-  //   path: "/login",
-  //   name: "Login",
-  //   component: Login
-  // },
+  {
+    // 登录页
+    path: "/login",
+    name: "Login",
+    component: Login
+  },
   {
     // 新增页
     path: "/staff/add",
