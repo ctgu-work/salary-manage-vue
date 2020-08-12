@@ -8,7 +8,7 @@
     :close-on-click-modal="false"
   >
     <el-form
-      :model="forms"
+      :model="form"
       :rules="rules"
       ref="editForms"
       class="edit-forms title"
@@ -28,11 +28,11 @@
         type: "",
        -->
       <el-form-item label="部门名称" prop="departName">
-        <el-input v-model="forms.departName"></el-input>
+        <el-input v-model="form.departName"></el-input>
       </el-form-item>
 
       <el-form-item label="部门类型" prop="type">
-        <el-select v-model="forms.departTypeId" placeholder="请选择">
+        <el-select v-model="form.departTypeId" placeholder="请选择">
           <el-option
             v-for="item in options"
             :key="item.departTypeId"
@@ -43,18 +43,18 @@
       </el-form-item>
 
       <el-form-item label="部门电话" prop="departPhone">
-        <el-input v-model="forms.departPhone"></el-input>
+        <el-input v-model="form.departPhone"></el-input>
       </el-form-item>
 
       <el-form-item label="部门传真" prop="fax">
-        <el-input v-model="forms.fax"></el-input>
+        <el-input v-model="form.fax"></el-input>
       </el-form-item>
 
       <el-form-item label="部门描述" prop="desc">
         <el-input
           type="textarea"
           :rows="4"
-          v-model="forms.description"
+          v-model="form.description"
         ></el-input>
       </el-form-item>
     </el-form>
@@ -75,7 +75,11 @@ import {
 } from "@/utils/validateRules";
 
 import { fillerLeft, resetObject } from "@/utils/common";
-import { findDepartType ,addDepart} from "@/api/BasicManage/depart";
+import {
+  findDepartType,
+  addDepart,
+  updateOneDepartment,
+} from "@/api/BasicManage/depart";
 export default {
   props: {
     title: {
@@ -95,7 +99,18 @@ export default {
   },
   data() {
     return {
-      form:{},
+      form: {
+        departId: "",
+        departName: "",
+        departPhone: "",
+        departTypeId: 0,
+        description: "",
+        establishDate: 0,
+        fatherDepartId: 0,
+        fatherDepartName: "",
+        fax: "",
+        type: "",
+      },
       options: [],
       rules: {
         ...FillerFieldRules(["departName"], Required),
@@ -113,27 +128,27 @@ export default {
             message: "字段验证通过，提交请求，成功后刷新分页！",
             type: "success",
           });
-          this.$emit("success"); //通知列表分页刷新
-          console.log('提交表单');
-          console.log(this.forms);
-          // let ans = {
-          //   departId: this.forms.departId,
-          //   departName: this.forms.departName,
-          //   departPhone: this.forms.departPhone,
-          //   departTypeId: this.forms.departTypeId,
-          //   description: this.forms.description,
-          //   fatherDepartId: this.forms.fatherDepartId,
-          //   fatherDepartName: this.forms.fatherDepartName,
-          //   fax: this.forms.fax,
-          //   type: this.forms.type,
-          // };
-          addDepart(this.forms)
-            .then((r) => {
-              console.log(r);
-            })
-            .catch((e) => {
-              console.dir(e);
-            });
+          // this.$emit("success"); //通知列表分页刷新
+
+          if (this.title === "编辑" || this.title === "Edit") {
+            updateOneDepartment(this.form)
+              .then((r) => {
+                console.log(r);
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+          } else {
+            addDepart(this.form)
+              .then((r) => {
+                console.log(r);
+              })
+              .catch((e) => {
+                console.dir(e);
+              });
+          }
+
+          this.$emit("editSuccess", "success");
         } else {
           this.$message({
             message: "请按照提示正确填写内容！",
@@ -144,22 +159,32 @@ export default {
       });
     },
     openDialog() {
-      // this.form = this.forms
       console.log(this.title);
       console.log(this.forms.departId);
       if (this.title === "添加") {
-        console.log('重置');
-        resetObject(this.forms);
-        this.$set(this.forms, "id", null);
-        this.$set(this.forms, "departTypeId", this.options[0].departTypeId);
+        this.form = {
+          departId: "",
+          departName: "",
+          departPhone: "",
+          departTypeId: "",
+          description: "",
+          establishDate: "",
+          fatherDepartId: "",
+          fatherDepartName: "",
+          fax: "",
+          type: "",
+        };
+        console.log("重置");
+        // resetObject(this.forms);
+        // this.$set(this.forms, "id", null);
+        this.$set(this.form, "departTypeId", this.options[0].departTypeId);
         // this.$refs.editForms.resetFields();
+      } else {
+        this.form = this.forms;
       }
-      // resetObject(this.forms);
-      // this.$set(this.forms, "id", null);
-      // this.$refs.editForms.resetFields();
     },
     FillerFormField(id, data) {
-      console.log('FillerFormField');
+      console.log("FillerFormField");
       //可以外部填充回写做编辑用，也可以请求详情接口填充表单
       this.$set(this.forms, "departId", id);
       fillerLeft(this.forms, data);

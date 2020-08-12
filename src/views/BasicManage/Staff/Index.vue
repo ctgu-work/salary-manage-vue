@@ -2,9 +2,7 @@
   <div>
     <ToolBar>
       <div>
-        <el-button type="primary" size="small" @click="gotolink()"
-          >添加</el-button
-        >
+        <el-button type="primary" size="small" @click="add">添加</el-button>
         <el-button type="primary" size="small" @click="exportTable"
           >本地导出表格</el-button
         >
@@ -24,10 +22,9 @@
           placeholder="请选择类型"
           size="small"
         >
-          <el-option label="姓名" value="staffName"></el-option>
-          <el-option label="ID" value="staffId"></el-option>
+          <el-option label="身份证号" value="idCard"></el-option>
         </el-select>
-        <el-button type="success" size="small" @click="search()"
+        <el-button type="success" size="small" @click="search"
           >查询</el-button
         >
         <el-button type="warning" size="small" @click="clearSearchParams()"
@@ -45,7 +42,7 @@
       </el-table-column> -->
         <el-table-column prop="staffName" label="姓名"></el-table-column>
         <el-table-column prop="positionName" label="所在岗位"></el-table-column>
-        <el-table-column prop="departmentName" label="所在部门"></el-table-column>
+        <el-table-column prop="departName" label="所在部门"></el-table-column>
         <el-table-column prop="phoneNumber" label="电话"></el-table-column>
         <el-table-column prop="email" label="邮箱"></el-table-column>
         <el-table-column>
@@ -72,6 +69,7 @@
       :title="editTitle"
       :showEditDialog="showEditDialog"
       @close="showEditDialog = false"
+      @editSuccess="editSuccess"
     />
     <el-pagination
       layout="sizes,prev, pager, next"
@@ -92,6 +90,7 @@ import {
   findStaff,
   findStaffByParams,
   delStaff,
+  addStaff,
 } from "@/api/BasicManage/staff";
 
 export default {
@@ -102,7 +101,7 @@ export default {
       tableData: [],
       searchParams: {
         title: "",
-        type: "staffName",
+        type: "idCard",
       },
       total: 0,
       pagesize: 10,
@@ -140,36 +139,31 @@ export default {
         major: "计算机科学与技术",
         graduateTime: "2020-8-7",
       },
-      staffId: -1,
     };
   },
-
-  // gotolink(){
-
-  //       //点击跳转至上次浏览页面
-  //      // this.$router.go(-1)
-
-  //       //指定跳转地址
-  //       this.$router.replace('/addStaff')
-  // },
-  // workerdemo(){
-
-  //       //点击跳转至上次浏览页面
-  //      // this.$router.go(-1)
-
-  //       //指定跳转地址
-  //       this.$router.replace('/worker/detail')
-  // },
   methods: {
-    gotolink() {
-      //指定跳转地址
-      this.$router.replace("/staff/add");
+    editSuccess(res) {
+      if (res === "success") {
+        this.getTable();
+      }
+    },
+    getTable() {
+      findStaff(this.page)
+        .then((r) => {
+          this.tableData = r.list;
+          this.pagesize = r.pageSize;
+          this.total = r.total;
+        })
+        .catch((e) => {
+          console.dir(e);
+        });
     },
     //添加部门
     add() {
       this.editTitle = "添加";
       this.showEditDialog = true;
     },
+    //员工详情
     handleDetail(row) {
       this.form = row;
       console.log(this.form);
@@ -180,29 +174,27 @@ export default {
         },
       });
     },
+    //编辑
     handleEdit(index, row) {
       this.editTitle = "编辑";
       this.showEditDialog = true;
       this.form = row;
-      // console.log(index);
-      console.log(row);
-      console.log(this.form);
     },
+    //删除
     handleDelete(row) {
       delStaff({ staffId: row.staffId })
         .then(() => {
-          console.log("1111111111");
+          this.getTable();
         })
         .catch((e) => {
           console.dir(e);
         });
     },
+    //查询
     search() {
       findStaffByParams(this.searchParams, this.page)
         .then((r) => {
-          this.tableData = r.list;
-          this.pagesize = r.pageSize;
-          this.total = r.total;
+          this.tableData.staff = r;
         })
         .catch((e) => {
           console.dir(e);
@@ -241,19 +233,11 @@ export default {
     },
     //刷新
     refresh() {
-      //this.$refs.pagination.Refresh(); //分页刷新
+      this.$refs.pagination.Refresh(); //分页刷新
     },
   },
   created() {
-    findStaff(this.page)
-      .then((r) => {
-        this.tableData = r.list;
-        this.pagesize = r.pageSize;
-        this.total = r.total;
-      })
-      .catch((e) => {
-        console.dir(e);
-      });
+    this.getTable();
   },
 };
 </script>

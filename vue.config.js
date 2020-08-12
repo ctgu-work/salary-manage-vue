@@ -5,6 +5,7 @@ module.exports = {
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
   parallel: undefined,
+  lintOnSave:false,
   chainWebpack: config => {
     // remove the prefetch plugin
     config.plugins.delete("prefetch");

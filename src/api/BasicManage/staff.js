@@ -9,27 +9,22 @@ export function findStaff(params) {
     return request({
         url: "/staff/list",
         method: "get",
-        params: {"staffId": params} //注意：如果是get请求请使用 params: params
+        params: {
+            "staffId": params
+        } //注意：如果是get请求请使用 params: params
     });
 }
 /**
- * 搜索框搜索
+ * 搜索框搜索,根据idCard
  * @param  params
  * @param  page
  */
 export function findStaffByParams(params, page) {
-    var url = "";
-    if (params.type === "staffName") {
-        url = "staff/find-name";
-        params.staffName = params.title;
-    } else {
-        url = "staff/find-id";
-        params.staffId = params.title;
-    }
+    params.idCard = params.title;
     params.startPage = page.startPage;
     params.pageSize = page.pageSize;
     return request({
-        url: url,
+        url: "staff/find-idCard",
         method: "get",
         params: params,
     });
@@ -50,12 +45,12 @@ export function findStaffByParams(params, page) {
  * 新增员工
  * @param params 
  */
-export function addStaff(params) {
-    console.log(params);
+export function addStaff(data) {
+    console.log(data);
     return request({
         url: "/staff/add",
-        method: "get",
-        data: params //注意：如果是get请求请使用 params: params
+        method: "post",
+        data: data //注意：如果是get请求请使用 params: params
     });
 }
 /**
@@ -68,4 +63,28 @@ export function delStaff(params) {
         method: "get",
         params: params //注意：如果是get请求请使用 params: params
     });
+}
+
+/**
+ * 更新员工
+ * @param {form} params 
+ */
+export function updateOneStaff(params) {
+    return request({
+        url: 'staff/update',
+        method: 'post',
+        data: params
+    })
+}
+
+/**
+ * 根据部门查岗位
+ * @param params 
+ */
+export function departAllPosition(params) {
+    return request({
+        url: 'staff/position-list',
+        method: 'get',
+        params: params
+    })
 }

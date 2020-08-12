@@ -55,7 +55,9 @@
         </el-table-column>
         <el-table-column>
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+              >编辑</el-button
+            >
             <el-button
               size="mini"
               type="danger"
@@ -71,6 +73,7 @@
       :title="editTitle"
       :showEditDialog="showEditDialog"
       @close="showEditDialog = false"
+      @editSuccess="editSuccess"
     />
     <el-pagination
       layout="sizes,prev, pager, next"
@@ -86,6 +89,7 @@
 
 <script>
 import { exportCvsTable } from "@/utils/cvs";
+import { delDepartById } from "@/api/BasicManage/depart";
 import Edit from "./Edit";
 import {
   findDepartment,
@@ -108,21 +112,15 @@ export default {
         startPage: 1,
         pageSize: 10,
       },
-      form: {
-        departId: -1,
-        departName: "",
-        departPhone: "",
-        departTypeId: 0,
-        description: "",
-        establishDate: 0,
-        fatherDepartId: 0,
-        fatherDepartName: "",
-        fax: "",
-        type: "",
-      },
+      form: {},
     };
   },
   methods: {
+    editSuccess(res) {
+      if (res === "success") {
+        this.getTable();
+      }
+    },
     //添加部门
     add() {
       this.editTitle = "添加";
@@ -131,16 +129,25 @@ export default {
     handleEdit(index, row) {
       this.editTitle = "编辑";
       this.showEditDialog = true;
-      this.form = row
-      // console.log(index);
-      console.log(row);
-      console.log(this.form);
+      this.form = row;
     },
     handleDelete(index, row) {
       console.log(index, row);
+      delDepartById(index);
     },
     search() {
       findDepartmentByParams(this.searchParams, this.page)
+        .then((r) => {
+          this.tableData = r.list;
+          this.pagesize = r.pageSize;
+          this.total = r.total;
+        })
+        .catch((e) => {
+          console.dir(e);
+        });
+    },
+    getTable() {
+      findDepartment(this.page)
         .then((r) => {
           this.tableData = r.list;
           this.pagesize = r.pageSize;
@@ -183,19 +190,11 @@ export default {
     },
     //刷新
     refresh() {
-      //this.$refs.pagination.Refresh(); //分页刷新
+      this.$refs.pagination.Refresh(); //分页刷新
     },
   },
   created() {
-    findDepartment(this.page)
-      .then((r) => {
-        this.tableData = r.list;
-        this.pagesize = r.pageSize;
-        this.total = r.total;
-      })
-      .catch((e) => {
-        console.dir(e);
-      });
+    this.getTable();
   },
 };
 </script>

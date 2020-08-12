@@ -1,4 +1,5 @@
 import request from "@/utils/request.js";
+// import qs from 'QS'
 
 /**
  * 获取所有部门
@@ -44,21 +45,45 @@ export function findDepartmentByParams(params, page) {
  */
 export function findDepartType(params) {
   return request({
-    url: "depart/list",
+    url: "depart-type/list",
     method: "get",
     params: params,
   });
 }
 
-
+/**
+ * 添加部门
+ * @param  params 
+ */
 export function addDepart(params) {
-  // params.departId=10;
-  // params.fatherDepartName='123'
-  // params.establishDate='123'
-  // params.fatherDepartId='123'
   return request({
     url: "depart/add",
     method: "post",
-    params: params,
+    data: params
   });
+}
+
+
+/**
+ * 更新部门
+ * @param {form} params 
+ */
+export function updateOneDepartment(params) {
+  return request({
+    url: 'depart/update',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * 删除部门
+ * @param {id} params 
+ */
+export function delDepartById(params) {
+  return request({
+    url: 'depart/del',
+    method: 'get',
+    params: params
+  })
 }

@@ -5,7 +5,9 @@ import { getToken } from "../utils/common";
 const service = Axios.create({
   baseURL: Config.apiUrl + "/" + Config.apiPrefix,
   headers: {
-    Accept: "*/*"
+    Accept: "*/*",
+    "Content-Type":"application/json"
+    
   },
   timeout: Config.timeout
 });
