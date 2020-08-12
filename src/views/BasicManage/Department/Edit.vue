@@ -128,12 +128,11 @@ export default {
             message: "字段验证通过，提交请求，成功后刷新分页！",
             type: "success",
           });
-          // this.$emit("success"); //通知列表分页刷新
 
           if (this.title === "编辑" || this.title === "Edit") {
             updateOneDepartment(this.form)
               .then((r) => {
-                console.log(r);
+                // console.log(r);
               })
               .catch((e) => {
                 console.log(e);
@@ -141,14 +140,15 @@ export default {
           } else {
             addDepart(this.form)
               .then((r) => {
-                console.log(r);
+                // console.log(r);
               })
               .catch((e) => {
                 console.dir(e);
               });
           }
-
-          this.$emit("editSuccess", "success");
+          this.$emit("editSuccess");
+          this.$emit('close')
+          // this.showEditDialog = false
         } else {
           this.$message({
             message: "请按照提示正确填写内容！",

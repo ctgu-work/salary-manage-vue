@@ -1,12 +1,13 @@
 export default {
   name: "基本信息管理",
   permissionsKey: "",
-  icon: "fa fa-envelope-open",
+  icon: "fa fa-user",
   children: {
     courseCardList: {
       name: "员工信息管理",
       permissionsKey: "",
-      path: "/info/staff"
+      path: "/info/stuff",
+      icon:'fa fa-group (alias)'
     },
     departCardList: {
       name: "部门管理",
