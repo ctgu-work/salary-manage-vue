@@ -4,7 +4,6 @@
       <i class="el-icon-menu"></i>
     </div>
     <div class="right">
-     
       <span class="body-top-btn" @click="screenFullToggle">
         <i class="fa fa-arrows-alt"></i>
       </span>
@@ -22,8 +21,7 @@
                 v-for="item in GlobalCfg.systemNavType"
                 :key="item.value"
                 @click="$store.commit('NAV_TYPE_TOGGLE', item.value)"
-                >{{ item.label }}</el-button
-              >
+              >{{ item.label }}</el-button>
             </el-button-group>
           </div>
         </el-dropdown-menu>
@@ -33,6 +31,18 @@
           <i class="el-icon-bell"></i>
         </el-badge>
       </span>
+
+      <el-dropdown @command='changeLang'>
+        <span class="body-top-btn">
+          选择语言
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu  slot="dropdown">
+          <el-dropdown-item command='zh' icon="el-icon-plus">中文</el-dropdown-item>
+          <el-dropdown-item command='en' icon="el-icon-circle-plus">English</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+
       <el-dropdown>
         <span class="body-top-btn">
           {{ userName }}
@@ -78,12 +88,16 @@ export default {
           });
         });
     },
-    logout() {}
+    logout() {},
     //语言切换
-
+    changeLang(command){
+      // console.log('1');
+      // console.log(command);
+      this.$i18n.locale= command
+    }
   },
   computed: mapState(["system"])
-}
+};
 </script>
 <style lang="scss">
 @import "../../assets/css/variables.scss";
