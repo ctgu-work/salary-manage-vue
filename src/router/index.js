@@ -5,6 +5,7 @@ import BasicManage from "./basicManage";
 import Login from "../views/login/Login"
 import Staff_detail from "../views/staff/Staff_detail"
 import AddWorker from "../views/BasicManage/WorkerList/addWorker"
+import Salary from "./salary"
 Vue.use(VueRouter);
 
 const routes = [
@@ -28,6 +29,7 @@ const routes = [
     ]
   },
   BasicManage,
+  Salary,
   {
     //员工信息详情页
     path: "/staff_detail",

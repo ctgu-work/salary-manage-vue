@@ -14,8 +14,8 @@ export default {
       meta: {
         title: "固定工资管理",
       },
-    //   component: (resolve) =>
-    //     require(["@/views/BasicManage/WorkerList/Index.vue"], resolve),
+        component: (resolve) =>
+          require(["@/views/BasicManage/WorkerList/Index.vue"], resolve),
     },
     {
       path: "atten",
@@ -23,8 +23,8 @@ export default {
       meta: {
         title: "导入项目管理",
       },
-    //   component: (resolve) =>
-    //     require(["@/views/BasicManage/Department/Index.vue"], resolve),
+      component: (resolve) =>
+        require(["@/views/Salary/AttenSalary/Index.vue"], resolve),
     },
     {
       path: "calculate",
@@ -32,17 +32,17 @@ export default {
       meta: {
         title: "计算项目管理",
       },
-    //   component: (resolve) =>
-    //     require(["@/views/BasicManage/Jobs/Index.vue"], resolve),
-    },
-    {
-        path: "total",
-        name: "totalSalary",
-        meta: {
-          title: "总工资管理",
-        },
         // component: (resolve) =>
         //   require(["@/views/BasicManage/Jobs/Index.vue"], resolve),
-      }
+    },
+    {
+      path: "total",
+      name: "totalSalary",
+      meta: {
+        title: "总工资管理",
+      },
+      // component: (resolve) =>
+      //   require(["@/views/BasicManage/Jobs/Index.vue"], resolve),
+    }
   ],
 };
