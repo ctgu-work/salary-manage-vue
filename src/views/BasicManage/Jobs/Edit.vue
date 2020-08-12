@@ -133,9 +133,9 @@ export default {
             })
             .catch((e) => {
               console.dir(e);
-              
+              this.getTable();
             });
-            this.getTable();
+            
           }
           this.$emit('editSuccess','success');
         } else {

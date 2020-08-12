@@ -14,8 +14,8 @@ export default {
       meta: {
         title: "固定工资管理",
       },
-    //   component: (resolve) =>
-    //     require(["@/views/BasicManage/WorkerList/Index.vue"], resolve),
+      component: (resolve) =>
+        require(["@/views/Salary/fixedSalary/Index.vue"], resolve),
     },
     {
       path: "atten",
@@ -39,7 +39,7 @@ export default {
       path: "/show",
       name: "calculateShow",
       meta: {
-        title: "计算项目管理",
+        title: "员工工资展示",
       },
     //   component: (resolve) =>
     //     require(["@/views/BasicManage/Jobs/Index.vue"], resolve),
