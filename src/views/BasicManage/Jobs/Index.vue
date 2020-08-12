@@ -14,14 +14,14 @@
           clearable
         ></el-input>
         <el-select
-          v-model="searchParams.type1"
+          v-model="searchParams.type"
           clearable
           style="width: 140px"
           placeholder="请选择类型"
           size="small"
         >
           <el-option label="岗位名称" value="name"></el-option>
-          <el-option label="岗位类型" value="type"></el-option>
+          <el-option label="岗位类型" value="type1"></el-option>
         </el-select>
         <el-button type="success" size="small" @click="search()">查询</el-button>
         <el-button type="warning" size="small" @click="clearSearchParams()">重置</el-button>
@@ -71,7 +71,7 @@ export default {
       tableData: [],
       searchParams: {
         title: "",
-        type1: "name"
+        type: "name"
       },
       total: 0,
       pagesize: 10,
