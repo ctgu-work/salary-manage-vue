@@ -13,8 +13,8 @@
               :fit="fit"
               :src="staff.avatar"
             ></el-avatar>
-            <h3>{{ staff.staff_name }}</h3>
-            <p>员工id:{{ staff.staff_id }}</p>
+            <h3>{{ staff.staffName }}</h3>
+            <p>员工id:{{ staff.staffId }}</p>
           </div>
           <div class="left-2">
             <h3>个人资料</h3>
@@ -33,25 +33,25 @@
             </div>
             <div class="text">
               <span>血型：</span>
-              <span v-if="staff.marital_type=='1'">A</span>
-              <span v-else-if="staff.marital_type=='2'">B</span>
-              <span v-else-if="staff.marital_type=='3'">AB</span>
-              <span v-else-if="staff.marital_type=='4'">O</span>
-              <span v-else-if="staff.marital_type=='5'">其他</span>
+              <span v-if="staff.maritalType=='1'">A</span>
+              <span v-else-if="staff.maritalType=='2'">B</span>
+              <span v-else-if="staff.maritalType=='3'">AB</span>
+              <span v-else-if="staff.maritalType=='4'">O</span>
+              <span v-else-if="staff.maritalType=='5'">其他</span>
             </div>
             <div class="text">
               <span>政治面貌：</span>
-              <span v-if="staff.political_type=='1'">党员</span>
-              <span v-else-if="staff.political_type=='2'">共青团员</span>
-              <span v-else-if="staff.political_type=='3'">群众</span>
-              <span v-else-if="staff.political_type=='4'">其他</span>
+              <span v-if="staff.politicalType=='1'">党员</span>
+              <span v-else-if="staff.politicalType=='2'">共青团员</span>
+              <span v-else-if="staff.politicalType=='3'">群众</span>
+              <span v-else-if="staff.politicalType=='4'">其他</span>
             </div>
           </div>
           <div class="left-4">
             <h3>联系方式</h3>
           </div>
           <div class="left-5">
-            <div class="text"><span>手机：</span><span>{{staff.phone_number}}</span></div>
+            <div class="text"><span>手机：</span><span>{{staff.phoneNumber}}</span></div>
             <div class="text">
               <span>邮箱：</span><span>{{staff.email}}</span>
             </div>
@@ -68,18 +68,18 @@
             <div class="content">
               <div class="span">
                 <span>最高学历：</span>
-                <span class="span-2" v-if="staff.highest_education=='1'">高中及以下</span>
-                <span class="span-2" v-else-if="staff.highest_education=='2'">大专</span>
-                <span class="span-2" v-else-if="staff.highest_education=='3'">本科</span>
-                <span class="span-2" v-else-if="staff.highest_education=='4'">硕士</span>
-                <span class="span-2" v-else-if="staff.highest_education=='5'">博士</span>
+                <span class="span-2" v-if="staff.highestEducation=='1'">高中及以下</span>
+                <span class="span-2" v-else-if="staff.highestEducation=='2'">大专</span>
+                <span class="span-2" v-else-if="staff.highestEducation=='3'">本科</span>
+                <span class="span-2" v-else-if="staff.highestEducation=='4'">硕士</span>
+                <span class="span-2" v-else-if="staff.highestEducation=='5'">博士</span>
               </div>
               <div class="span">
                 <span>最高学位：</span>
-                <span class="span-2" v-if="staff.highest_degree=='1'">无</span>
-                <span class="span-2" v-else-if="staff.highest_degree=='2'">学士</span>
-                <span class="span-2" v-else-if="staff.highest_degree=='3'">硕士</span>
-                <span class="span-2" v-else-if="staff.highest_degree=='4'">博士</span>
+                <span class="span-2" v-if="staff.highestDegree=='1'">无</span>
+                <span class="span-2" v-else-if="staff.highestDegree=='2'">学士</span>
+                <span class="span-2" v-else-if="staff.highestDegree=='3'">硕士</span>
+                <span class="span-2" v-else-if="staff.highestDegree=='4'">博士</span>
               </div>
               <div class="span">
                 <span>院校：</span><span class="span-2">{{staff.school}}</span>
@@ -88,7 +88,7 @@
                 <span>专业：</span><span class="span-2">{{staff.major}}</span>
               </div>
               <div class="span">
-                <span>毕业日期：</span><span class="span-2">{{staff.graduate_time}}</span>
+                <span>毕业日期：</span><span class="span-2">{{staff.graduateTime}}</span>
               </div>
             </div>
           </div>
@@ -99,21 +99,21 @@
             </div>
             <div class="content">
               <div class="span">
-                <span>入职日期：</span><span class="span-2">{{staff.work_time}}</span>
+                <span>入职日期：</span><span class="span-2">{{staff.workTime}}</span>
               </div>
               <div class="span">
-                <span>参加工作日期：</span><span class="span-2">{{staff.att_work_time}}</span>
+                <span>参加工作日期：</span><span class="span-2">{{staff.attWorkTime}}</span>
               </div>
               <div class="span">
                 <span>员工形式：</span>
-                <span class="span-2" v-if="staff.employe_form=='0'">临时工</span>
-                <span class="span-2" v-else-if="staff.employe_form=='1'">正式工</span>
+                <span class="span-2" v-if="staff.employeeForm=='0'">临时工</span>
+                <span class="span-2" v-else-if="staff.employeeForm=='1'">正式工</span>
               </div>
               <div class="span">
                 <span>员工来源：</span>
-                <span class="span-2" v-if="staff.personnel_source=='1'">校招</span>
-                <span class="span-2" v-else-if="staff.personnel_source=='2'">社招</span>
-                <span class="span-2" v-else-if="staff.personnel_source=='3'">其他</span>
+                <span class="span-2" v-if="staff.personnelSource=='1'">校招</span>
+                <span class="span-2" v-else-if="staff.personnelSource=='2'">社招</span>
+                <span class="span-2" v-else-if="staff.personnelSource=='3'">其他</span>
               </div>
             </div>
           </div>
@@ -125,23 +125,23 @@
             <div class="content">
               <div class="span">
                 <span>婚姻状态：</span>
-                <span class="span-2" v-if="staff.marital_type=='1'">未婚</span>
-                <span class="span-2" v-else-if="staff.marital_type=='2'">已婚</span>
-                <span class="span-2" v-else-if="staff.marital_type=='3'">丧偶</span>
-                <span class="span-2" v-else-if="staff.marital_type=='4'">其他</span>
+                <span class="span-2" v-if="staff.maritalType=='1'">未婚</span>
+                <span class="span-2" v-else-if="staff.maritalType=='2'">已婚</span>
+                <span class="span-2" v-else-if="staff.maritalType=='3'">丧偶</span>
+                <span class="span-2" v-else-if="staff.maritalType=='4'">其他</span>
               </div>
               <div class="span">
                 <span>身高：</span><span class="span-2">{{staff.height}}</span>
               </div>
               <div class="span">
-                <span>所在部门ID：</span><span class="span-2">{{staff.position_id}}</span>
+                <span>所在部门：</span><span class="span-2">{{staff.positionName}}</span>
               </div>
               <div class="span">
-                <span>所在岗位ID：</span><span class="span-2">{{staff.department_id}}</span>
+                <span>所在岗位：</span><span class="span-2">{{staff.departName}}</span>
               </div>
               <div class="span">
                 <span>身份证号：</span
-                ><span class="span-2">{{staff.id_card}}</span>
+                ><span class="span-2">{{staff.idCard}}</span>
               </div>
             </div>
           </div>
@@ -158,40 +158,49 @@ export default {
   data() {
     return {
       staff: {
-        staff_id: "661116666",
+        staffId: "",
         avatar: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-        staff_name: "吴恒",
+        staffName: "吴恒",
         sex: "0",
         birth: "2020-8-7",
-        id_card: "420420402402042044",
-        position_id: "1",
-        department_id: "1",
-        work_time: "2020-8-7",
-        att_work_time: "2020-8-7",
-        employe_form: "1",
-        personnel_source: "1",
-        political_type: "1",
+        idCard: "420420402402042044",
+        positionName: "1",
+        departName: "1",
+        workTime: "2020-8-7",
+        attWorkTime: "2020-8-7",
+        employeeForm: "1",
+        personnelSource: "1",
+        politicalType: "1",
         nation: "1",
         hometown: "湖北武汉",
-        birth_location: "湖北武汉",
-        phone_number: "13872618179",
+        birthLocation: "湖北武汉",
+        phoneNumber: "13872618179",
         email: "mr.djg@qq.com",
         height: "180",
-        blood_type: "1",
-        marital_type: "1",
-        highest_education: "1",
-        highest_degree: "2",
+        bloodType: "1",
+        maritalType: "1",
+        highestEducation: "1",
+        highestDegree: "2",
         school: "三峡大学",
         major: "计算机科学与技术",
-        graduate_time: "2020-8-7",
+        graduateTime: "2020-8-7",
       },
     };
   },
+  created(){
+    this.getMessage();
+  },
+  methods: {
+    async getMessage() {
+      let self = this;
+      self.staff = self.$route.params.staff;
+      console.log(self.staff)
+    },
+  },
+
 };
 </script>
 <style lang="scss"  scoped>
-.body {
-}
 .el-col {
   min-height: 1px;
 }
