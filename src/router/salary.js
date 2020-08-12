@@ -27,8 +27,17 @@ export default {
     //     require(["@/views/BasicManage/Department/Index.vue"], resolve),
     },
     {
-      path: "calculate",
+      path: "/calculate",
       name: "calculateSalary",
+      meta: {
+        title: "计算项目管理",
+      },
+    //   component: (resolve) =>
+    //     require(["@/views/BasicManage/Jobs/Index.vue"], resolve),
+    },
+    {
+      path: "/show",
+      name: "calculateShow",
       meta: {
         title: "计算项目管理",
       },

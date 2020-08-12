@@ -91,7 +91,7 @@ export default {
     return {
       form: {
         positionId: "",
-        positionMan: "",
+        positionMan: 0,
         positionName: "",
         departId: 0,
         departName: "",
@@ -129,10 +129,13 @@ export default {
             addJob(this.form)
             .then((r) => {
               console.log(r);
+              
             })
             .catch((e) => {
               console.dir(e);
+              
             });
+            this.getTable();
           }
           this.$emit('editSuccess','success');
         } else {
@@ -150,7 +153,7 @@ export default {
       if (this.title === "添加") {
         this.form = {
         positionId: "",
-        positionMan: "",
+        positionMan: 0,
         positionName: "",
         departId: "",
         departName: "",

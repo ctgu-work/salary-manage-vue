@@ -14,7 +14,7 @@
           clearable
         ></el-input>
         <el-select
-          v-model="searchParams.type"
+          v-model="searchParams.type1"
           clearable
           style="width: 140px"
           placeholder="请选择类型"
@@ -71,7 +71,7 @@ export default {
       tableData: [],
       searchParams: {
         title: "",
-        type: "name"
+        type1: "name"
       },
       total: 0,
       pagesize: 10,
