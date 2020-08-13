@@ -7,7 +7,7 @@ export default {
     courseCardList: {
       name: "员工信息管理",
       permissionsKey: "",
-      path: "/info/stuff"
+      path: "/info/staff"
     },
     departCardList: {
       name: "部门管理",
