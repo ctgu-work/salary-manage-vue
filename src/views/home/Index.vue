@@ -6,35 +6,38 @@
       </div>
       <div class="demo">
         <el-row :gutter="20">
-          <el-col :span="6">
+          <el-col :span="8">
             <div class="grid-content ">
-              <div style="padding: 10px;background: #673AB7">
+              <div style="background: #673AB7">
                 <i class="el-icon-location-outline index-icon"></i>
-                1
+
+                <span>员工数：{{ num.staff }}</span>
               </div>
             </div>
           </el-col>
-          <el-col :span="6">
+          <!-- <el-col :span="6">
             <div class="grid-content ">
               <div style="padding: 10px;background: #3c8dbc">
                 <i class="el-icon-picture index-icon"></i>
                 2
               </div>
             </div>
-          </el-col>
-          <el-col :span="6">
+          </el-col> -->
+          <el-col :span="8">
             <div class="grid-content ">
-              <div style="padding: 10px;background: #009688">
+              <div style="background: #009688">
                 <i class="el-icon-service index-icon"></i>
-                3
+
+                <span>部门数：{{ num.depart }}</span>
               </div>
             </div>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="8">
             <div class="grid-content ">
-              <div style="padding: 10px;background: #607D8B">
+              <div style="background: #607D8B">
                 <i class="el-icon-bell index-icon"></i>
-                4
+
+                <span>岗位数：{{ num.position }}</span>
               </div>
             </div>
           </el-col>
@@ -44,322 +47,183 @@
     <br />
     <el-card style="border-radius: 0">
       <div slot="header">
-        <span>Element ui组件</span>
+        <span>图表展示</span>
       </div>
 
       <el-row>
-        1
+
+        <el-col :span="24">
+          <div id="main" style="width: 100%;height: 400px;"></div>
+        </el-col>
       </el-row>
     </el-card>
   </div>
 </template>
 
 <script>
+import echarts from "echarts";
+import { getNum, getLateDay } from "@/api/home/home";
 export default {
   data() {
     return {
-      radio: "",
-      elRate: 2,
-      selectedOptions: [],
-      num: "",
-      dateVal: "",
-      checkList: ["选中且禁用", "复选框 A"],
-      options: [
-        {
-          value: "zhinan",
-          label: "指南",
-          children: [
-            {
-              value: "shejiyuanze",
-              label: "设计原则",
-              children: [
-                {
-                  value: "yizhi",
-                  label: "一致"
-                },
-                {
-                  value: "fankui",
-                  label: "反馈"
-                },
-                {
-                  value: "xiaolv",
-                  label: "效率"
-                },
-                {
-                  value: "kekong",
-                  label: "可控"
-                }
-              ]
+      num: {
+        staff: "20",
+        depart: "10",
+        position: "10",
+      },
+      departLateDay: {
+        departName: "",
+        lateDay: "",
+      },
+      // echart
+      option: {
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "cross",
+            crossStyle: {
+              color: "#999",
             },
-            {
-              value: "daohang",
-              label: "导航",
-              children: [
-                {
-                  value: "cexiangdaohang",
-                  label: "侧向导航"
-                },
-                {
-                  value: "dingbudaohang",
-                  label: "顶部导航"
-                }
-              ]
-            }
-          ]
+          },
         },
-        {
-          value: "zujian",
-          label: "组件",
-          children: [
-            {
-              value: "basic",
-              label: "Basic",
-              children: [
-                {
-                  value: "layout",
-                  label: "Layout 布局"
-                },
-                {
-                  value: "color",
-                  label: "Color 色彩"
-                },
-                {
-                  value: "typography",
-                  label: "Typography 字体"
-                },
-                {
-                  value: "icon",
-                  label: "Icon 图标"
-                },
-                {
-                  value: "button",
-                  label: "Button 按钮"
-                }
-              ]
-            },
-            {
-              value: "form",
-              label: "Form",
-              children: [
-                {
-                  value: "radio",
-                  label: "Radio 单选框"
-                },
-                {
-                  value: "checkbox",
-                  label: "Checkbox 多选框"
-                },
-                {
-                  value: "input",
-                  label: "Input 输入框"
-                },
-                {
-                  value: "input-number",
-                  label: "InputNumber 计数器"
-                },
-                {
-                  value: "select",
-                  label: "Select 选择器"
-                },
-                {
-                  value: "cascader",
-                  label: "Cascader 级联选择器"
-                },
-                {
-                  value: "switch",
-                  label: "Switch 开关"
-                },
-                {
-                  value: "slider",
-                  label: "Slider 滑块"
-                },
-                {
-                  value: "time-picker",
-                  label: "TimePicker 时间选择器"
-                },
-                {
-                  value: "date-picker",
-                  label: "DatePicker 日期选择器"
-                },
-                {
-                  value: "datetime-picker",
-                  label: "DateTimePicker 日期时间选择器"
-                },
-                {
-                  value: "upload",
-                  label: "Upload 上传"
-                },
-                {
-                  value: "rate",
-                  label: "Rate 评分"
-                },
-                {
-                  value: "form",
-                  label: "Form 表单"
-                }
-              ]
-            },
-            {
-              value: "data",
-              label: "Data",
-              children: [
-                {
-                  value: "table",
-                  label: "Table 表格"
-                },
-                {
-                  value: "tag",
-                  label: "Tag 标签"
-                },
-                {
-                  value: "progress",
-                  label: "Progress 进度条"
-                },
-                {
-                  value: "tree",
-                  label: "Tree 树形控件"
-                },
-                {
-                  value: "pagination",
-                  label: "Pagination 分页"
-                },
-                {
-                  value: "badge",
-                  label: "Badge 标记"
-                }
-              ]
-            },
-            {
-              value: "notice",
-              label: "Notice",
-              children: [
-                {
-                  value: "alert",
-                  label: "Alert 警告"
-                },
-                {
-                  value: "loading",
-                  label: "Loading 加载"
-                },
-                {
-                  value: "message",
-                  label: "Message 消息提示"
-                },
-                {
-                  value: "message-box",
-                  label: "MessageBox 弹框"
-                },
-                {
-                  value: "notification",
-                  label: "Notification 通知"
-                }
-              ]
-            },
-            {
-              value: "navigation",
-              label: "Navigation",
-              children: [
-                {
-                  value: "menu",
-                  label: "NavMenu 导航菜单"
-                },
-                {
-                  value: "tabs",
-                  label: "Tabs 标签页"
-                },
-                {
-                  value: "breadcrumb",
-                  label: "Breadcrumb 面包屑"
-                },
-                {
-                  value: "dropdown",
-                  label: "Dropdown 下拉菜单"
-                },
-                {
-                  value: "steps",
-                  label: "Steps 步骤条"
-                }
-              ]
-            },
-            {
-              value: "others",
-              label: "Others",
-              children: [
-                {
-                  value: "dialog",
-                  label: "Dialog 对话框"
-                },
-                {
-                  value: "tooltip",
-                  label: "Tooltip 文字提示"
-                },
-                {
-                  value: "popover",
-                  label: "Popover 弹出框"
-                },
-                {
-                  value: "card",
-                  label: "Card 卡片"
-                },
-                {
-                  value: "carousel",
-                  label: "Carousel 走马灯"
-                },
-                {
-                  value: "collapse",
-                  label: "Collapse 折叠面板"
-                }
-              ]
-            }
-          ]
+        toolbox: {
+          feature: {
+            dataView: { show: true, readOnly: false },
+            magicType: { show: true, type: ["line", "bar"] },
+            restore: { show: true },
+            saveAsImage: { show: true },
+          },
         },
-        {
-          value: "ziyuan",
-          label: "资源",
-          children: [
-            {
-              value: "axure",
-              label: "Axure Components"
-            },
-            {
-              value: "sketch",
-              label: "Sketch Templates"
-            },
-            {
-              value: "jiaohu",
-              label: "组件交互文档"
-            }
-          ]
-        }
-      ]
+        legend: {
+          data: ["迟到人数"],
+        },
+        xAxis: {
+          type: "category",
+          data: [],
+          axisPointer: {
+            type: "shadow",
+          },
+        },
+        yAxis: {
+          type: "value",
+          name: "天数",
+          min: 0,
+          max: 10,
+          interval: 50,
+          axisLabel: {
+            formatter: "{value} 天",
+          },
+        },
+        // {
+        //   type: "value",
+        //   name: "温度",
+        //   min: 0,
+        //   max: 25,
+        //   interval: 5,
+        //   axisLabel: {
+        //     formatter: "{value} °C",
+        //   },
+        // },
+        series: {
+          name: "迟到人数",
+          type: "bar",
+          data: [],
+        },
+        // {
+        //   name: "降水量",
+        //   type: "bar",
+        //   data: [
+        //     2.6,
+        //     5.9,
+        //     9.0,
+        //     26.4,
+        //     28.7,
+        //     70.7,
+        //     175.6,
+        //     182.2,
+        //     48.7,
+        //     18.8,
+        //     6.0,
+        //     2.3,
+        //   ],
+        // },
+      },
     };
   },
   methods: {
-    open() {
-      this.$alert("这是一段内容", "标题名称", {
-        confirmButtonText: "确定",
-        callback: () => {
-          this.$message({
-            message: "恭喜你，这是一条成功消息",
-            type: "success"
-          });
-        }
-      });
-    }
+    // open() {
+    //   this.$alert("这是一段内容", "标题名称", {
+    //     confirmButtonText: "确定",
+    //     callback: () => {
+    //       this.$message({
+    //         message: "恭喜你，这是一条成功消息",
+    //         type: "success",
+    //       });
+    //     },
+    //   });
+    // },
+    drawPie(id) {
+      this.charts = echarts.init(document.getElementById(id));
+      this.charts.setOption(this.option, true);
+    },
   },
-  mounted: function() {}
+  //调用
+  mounted() {
+    this.$nextTick(function() {
+      this.drawPie("main");
+    });
+  },
+  created() {
+    getNum()
+      .then((r) => {
+        this.num.staff = r[0].staff;
+        this.num.depart = r[0].depart;
+        this.num.position = r[0].position;
+        // console.log(r[0].staff);
+      })
+      .catch((e) => {
+        console.dir(e);
+      });
+    getLateDay()
+      .then((r) => {
+        console.log(r);
+        let max = 0;
+        for (let index = 0; index < r.length; index++) {
+          this.option.xAxis.data.push(r[index].depart_name);
+        }
+        for (let index = 0; index < r.length; index++) {
+          this.option.series.data.push(r[index].lateDay);
+          if (r[index].lateDay > max) {
+            max = r[index].lateDay;
+          }
+        }
+        this.option.yAxis.max = max*2;
+        console.log(this.option.series.data);
+        this.$nextTick(function() {
+          this.drawPie("main");
+        });
+      })
+      .catch((e) => {
+        console.dir(e);
+      });
+  },
 };
 </script>
 <style lang="scss">
 .demo {
   margin: 10px;
   .grid-content {
+    vertical-align: middle;
     border-radius: 4px;
     overflow: hidden;
     color: #fff;
     background: #d3dce6;
+    height: 90px;
+    line-height: 90px;
+    text-align: center;
+    font-size: 25px;
     .index-icon {
-      font-size: 82px;
+      font-size: 25px;
       color: #fff;
     }
   }

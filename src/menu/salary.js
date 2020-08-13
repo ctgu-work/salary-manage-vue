@@ -18,6 +18,11 @@ export default {
       permissionsKey: "",
       path: "/salary/calculate"
     },
+    calculateShow: {
+      name: "计算项目展示",
+      permissionsKey: "",
+      path: "/salary/show"
+    },
     totalSalary: {
       name: "总工资管理",
       permissionsKey: "",
