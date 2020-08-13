@@ -50,8 +50,8 @@ export default {
       meta: {
         title: "总工资管理",
       },
-      // component: (resolve) =>
-      //   require(["@/views/BasicManage/Jobs/Index.vue"], resolve),
+      component: (resolve) =>
+        require(["@/views/Salary/total/Index.vue"], resolve),
     }
   ],
 };
