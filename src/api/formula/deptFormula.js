@@ -7,7 +7,7 @@ import request from "@/utils/request.js";
  */
 export function getFormula(params) {
     return request({
-        url: "/formula/getFormula",
+        url: "/report/list",
         method: "get",
         params: params
     });
