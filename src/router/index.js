@@ -6,10 +6,10 @@ import Salary from "./salary";
 import staffDetail from "../views/BasicManage/Staff/StaffDetail"
 import addStaff from "../views/BasicManage/Staff/AddStaff"
 import Login from "../views/admin/Login"
+import Formula from "./formula"
 Vue.use(VueRouter);
 
-const routes = [
-  {
+const routes = [{
     path: "/",
     component: Layout,
     name: "Dashboard",
@@ -17,19 +17,15 @@ const routes = [
     meta: {
       title: "仪表盘"
     },
-    children: [
-      {
-        path: "home",
-        name: "DashboardHome",
-        meta: {
-          title: "首页"
-        },
-        component: resolve => require(["@/views/home/Index.vue"], resolve)
-      }
-    ]
+    children: [{
+      path: "home",
+      name: "DashboardHome",
+      meta: {
+        title: "首页"
+      },
+      component: resolve => require(["@/views/home/Index.vue"], resolve)
+    }]
   },
-  BasicManage,
-  Salary,
   {
     //员工信息详情页
     path: "/staff/detail",
@@ -48,7 +44,9 @@ const routes = [
     name: "addStaff",
     component: addStaff
   },
+  BasicManage,
   Salary,
+  Formula,
 ];
 
 const originalPush = VueRouter.prototype.push;
