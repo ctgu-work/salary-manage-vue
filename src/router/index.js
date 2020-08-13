@@ -2,8 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Layout from "@/views/layout/App.vue";
 import BasicManage from "./basicManage";
+import Salary from "./salary";
 import staffDetail from "../views/BasicManage/Staff/StaffDetail"
-import addStaff from "../views/BasicManage/Staff/AddStaff"
+import login from "../views/admin/Login"
 Vue.use(VueRouter);
 
 const routes = [
@@ -33,18 +34,19 @@ const routes = [
     name: "staffDetail",
     component: staffDetail
   },
-  // {
-  //   // 登录页
-  //   path: "/login",
-  //   name: "Login",
-  //   component: Login
-  // },
   {
     // 新增页
     path: "/staff/add",
     name: "addStaff",
-    component: addStaff
+    component: login
   },
+  {
+    // 登录
+    path: "/admin/login",
+    name: "login",
+    component: login
+  },
+  Salary,
 ];
 
 const originalPush = VueRouter.prototype.push;

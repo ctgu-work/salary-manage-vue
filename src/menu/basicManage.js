@@ -6,7 +6,7 @@ export default {
     courseCardList: {
       name: "员工信息管理",
       permissionsKey: "",
-      path: "/info/stuff",
+      path: "/info/staff",
       icon:'fa fa-group (alias)'
     },
     departCardList: {

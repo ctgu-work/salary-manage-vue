@@ -9,9 +9,7 @@ export function findStaff(params) {
     return request({
         url: "/staff/list",
         method: "get",
-        params: {
-            "staffId": params
-        } //注意：如果是get请求请使用 params: params
+        params: params
     });
 }
 /**
@@ -67,13 +65,13 @@ export function delStaff(params) {
 
 /**
  * 更新员工
- * @param {form} params 
+ * @param {form} data 
  */
-export function updateOneStaff(params) {
+export function updateOneStaff(data) {
     return request({
         url: 'staff/update',
         method: 'post',
-        data: params
+        data: data
     })
 }
 

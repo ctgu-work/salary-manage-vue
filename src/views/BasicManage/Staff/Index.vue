@@ -92,7 +92,6 @@ import {
   delStaff,
   addStaff,
 } from "@/api/BasicManage/staff";
-
 export default {
   components: { Edit }, //导入组件
   data() {
@@ -143,9 +142,7 @@ export default {
   },
   methods: {
     editSuccess(res) {
-      if (res === "success") {
         this.getTable();
-      }
     },
     getTable() {
       findStaff(this.page)
