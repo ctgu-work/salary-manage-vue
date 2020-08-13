@@ -31,8 +31,16 @@ const en = {
             positionMan: 'Position-Man',
             departName: 'Depart-Name',
             type: 'Type',
-        }
+        },
+        
 
+    },
+    Salary:{
+        formula: {//岗位词汇
+            formulaId: 'Formula-Id',
+            formulaName: 'Formula-Name',
+            formulaPercentage: 'Formula-Percentage',
+        }
     },
     btn: {
         add: 'Add',

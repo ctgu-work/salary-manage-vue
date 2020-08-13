@@ -48,8 +48,17 @@ const zh = {
             positionMan: '岗位编制',
             departName: '部门名字',
             type: '岗位类型',
+        },
+
+    },
+    Salary:{
+        formula: {//岗位词汇
+            formulaId: '公式编号',
+            formulaName: '公式名称',
+            formulaPercentage: '计算条目百分比',
         }
     },
+
     btn: {//按钮统一再次声明
         add: '添加',
         select: '查询',

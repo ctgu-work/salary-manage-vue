@@ -27,22 +27,22 @@ export default {
         require(["@/views/Salary/AttenSalary/Index.vue"], resolve),
     },
     {
-      path: "/calculate",
+      path: "calculate",
       name: "calculateSalary",
       meta: {
         title: "计算项目管理",
       },
-    //   component: (resolve) =>
-    //     require(["@/views/BasicManage/Jobs/Index.vue"], resolve),
+      component: (resolve) =>
+        require(["@/views/Salary/CaculateContent/Index.vue"], resolve),
     },
     {
-      path: "/show",
+      path: "show",
       name: "calculateShow",
       meta: {
         title: "员工工资展示",
       },
-    //   component: (resolve) =>
-    //     require(["@/views/BasicManage/Jobs/Index.vue"], resolve),
+      component: (resolve) =>
+        require(["@/views/Salary/CalculateShow/Index.vue"], resolve),
     },
 
     {

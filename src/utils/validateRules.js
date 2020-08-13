@@ -101,6 +101,12 @@ export const NumberString = {
   trigger: "blur"
 };
 
+export const Float3 = {
+  pattern: /^(0\.(?!0+$)\d{1,2}|1(\.0{1,2})?|0?)$/,
+  message: "只能输入两位小数",
+  trigger: "blur"
+};
+
 //常用组合
 export const RequiredAndNumber = [Required, Number];
 export const RequiredAndBoolean = [Required, Boolean];
@@ -111,6 +117,7 @@ export const RequiredAndPhone = [Required, Phone];
 export const RequiredAndFloat2 = [Required, Float2];
 export const RequiredAndFloat2Max100 = [Required, Float2Max100];
 export const RequiredAndUrl = [Required, Url];
+export const RequiredAndFloat3 = [Required, Float3];
 
 export function FillerFieldRules(fields = [], rules) {
   let validateRules = {};
