@@ -102,6 +102,6 @@ export function setToken(token) {
  * 移除Token
  * @returns {*}
  */
-export function removeToken() {
+export async function removeToken() {
   return Storage.remove(Config.tokenKey);
 }

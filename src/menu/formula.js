@@ -8,15 +8,15 @@ export default {
             permissionsKey: "",
             path: "/formula/staff",
         },
-        deptFormula: {
-            name: "部门工资报表",
-            permissionsKey: "",
-            path: "/formula/dept",
-        },
-        firmFormula: {
-            name: "公司工资报表",
-            permissionsKey: "",
-            path: "/formula/firm",
-        }
+        // deptFormula: {
+        //     name: "部门工资报表",
+        //     permissionsKey: "",
+        //     path: "/formula/dept",
+        // },
+        // firmFormula: {
+        //     name: "公司工资报表",
+        //     permissionsKey: "",
+        //     path: "/formula/firm",
+        // }
     }
 };
