@@ -27,12 +27,12 @@
         fax: "",
         type: "",
        -->
-      <el-form-item label="部门名称" prop="departName">
+      <el-form-item :label="this.$i18n.t('basicManage.department.departName')" prop="departName">
         <el-input v-model="form.departName"></el-input>
       </el-form-item>
 
-      <el-form-item label="部门类型" prop="type">
-        <el-select v-model="form.departTypeId" placeholder="请选择">
+      <el-form-item :label="this.$i18n.t('basicManage.department.type')" prop="type">
+        <el-select v-model="form.departTypeId" :placeholder="this.$i18n.t('btn.selectType')">
           <el-option
             v-for="item in options"
             :key="item.departTypeId"
@@ -42,15 +42,15 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="部门电话" prop="departPhone">
+      <el-form-item :label="this.$i18n.t('basicManage.department.departPhone')" prop="departPhone">
         <el-input v-model="form.departPhone"></el-input>
       </el-form-item>
 
-      <el-form-item label="部门传真" prop="fax">
+      <el-form-item :label="this.$i18n.t('basicManage.department.fax')" prop="fax">
         <el-input v-model="form.fax"></el-input>
       </el-form-item>
 
-      <el-form-item label="部门描述" prop="desc">
+      <el-form-item :label="this.$i18n.t('basicManage.department.description')" prop="desc">
         <el-input
           type="textarea"
           :rows="4"
@@ -59,8 +59,8 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="$emit('close')">取 消</el-button>
-      <el-button type="primary" @click="submit">确认</el-button>
+      <el-button @click="$emit('close')">{{$t('btn.cancle')}}</el-button>
+      <el-button type="primary" @click="submit">{{$t('btn.confirm')}}</el-button>
     </div>
   </el-dialog>
 </template>
@@ -74,12 +74,8 @@ import {
   FillerFieldRules,
 } from "@/utils/validateRules";
 
-import { fillerLeft, resetObject } from "@/utils/common";
-import {
-  findDepartType,
-  addDepart,
-  updateOneDepartment,
-} from "@/api/BasicManage/depart";
+import { fillerLeft } from "@/utils/common";//, resetObject
+import { findDepartType, addDepart,updateOneDepartment } from "@/api/BasicManage/depart";
 export default {
   props: {
     title: {
@@ -128,27 +124,26 @@ export default {
             message: "字段验证通过，提交请求，成功后刷新分页！",
             type: "success",
           });
-
-          if (this.title === "编辑" || this.title === "Edit") {
+          // this.$emit("success"); //通知列表分页刷新
+          
+          if(this.title ==='编辑' || this.title ==='Edit') {
             updateOneDepartment(this.form)
-              .then((r) => {
-                // console.log(r);
-              })
-              .catch((e) => {
-                console.log(e);
-              });
-          } else {
+            .then((r) =>{
+              console.log(r);
+            })
+            .catch((e=>{
+              console.log(e);
+            }))
+          }else{
             addDepart(this.form)
-              .then((r) => {
-                // console.log(r);
-              })
-              .catch((e) => {
-                console.dir(e);
-              });
+            .then((r) => {
+              console.log(r);
+            })
+            .catch((e) => {
+              console.dir(e);
+            });
           }
-          this.$emit("editSuccess");
-          this.$emit('close')
-          // this.showEditDialog = false
+            this.$emit('editSuccess','success')
         } else {
           this.$message({
             message: "请按照提示正确填写内容！",
@@ -166,10 +161,10 @@ export default {
           departId: "",
           departName: "",
           departPhone: "",
-          departTypeId: "",
+          departTypeId: '',
           description: "",
-          establishDate: "",
-          fatherDepartId: "",
+          establishDate: '',
+          fatherDepartId: '',
           fatherDepartName: "",
           fax: "",
           type: "",

@@ -20,8 +20,7 @@
           placeholder="请选择类型"
           size="small"
         >
-          <el-option :label="this.$i18n.t('basicManage.position.positionName')" value="name"></el-option>
-          <el-option :label="this.$i18n.t('basicManage.position.type')" value="type1"></el-option>
+          <el-option label="类型名" value="name"></el-option>
         </el-select>
         <el-button type="success" size="small" @click="search()">{{$t('btn.select')}}</el-button>
         <el-button type="warning" size="small" @click="clearSearchParams()">{{$t('btn.reset')}}</el-button>
@@ -29,11 +28,8 @@
     </ToolBar>
     <div>
       <el-table ref="filterTable" :data="tableData" style="width: 100%">
-        <el-table-column prop="positionId" :label="this.$i18n.t('basicManage.position.positionId')" sortable></el-table-column>
-        <el-table-column prop="positionName" :label="this.$i18n.t('basicManage.position.positionName')"></el-table-column>
-        <el-table-column prop="positionMan" :label="this.$i18n.t('basicManage.position.positionMan')"></el-table-column>
-        <el-table-column prop="departName" :label="this.$i18n.t('basicManage.position.departName')"></el-table-column>
-        <el-table-column prop="type" :label="this.$i18n.t('basicManage.position.type')"></el-table-column>
+        <el-table-column prop="positionTypeId" :label="this.$i18n.t('positionType.poType.positionTypeId')" sortable></el-table-column>
+        <el-table-column prop="type" :label="this.$i18n.t('positionType.poType.type')"></el-table-column>
         <el-table-column>
           <template slot-scope="scope">
             <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">{{$t('btn.edit')}}</el-button>
@@ -62,7 +58,7 @@
 <script>
 import { exportCvsTable } from "@/utils/cvs";
 import Edit from "./Edit";
-import { findJob, findJobByParams, positiondelete } from "@/api/BasicManage/job.js";
+import { findPositionType, PositionTypedelete } from "@/api/BasicManage/positionType.js";
 export default {
   components: { Edit }, //导入组件
   data() {
@@ -100,7 +96,7 @@ export default {
       console.log(this.form);
     },
     handleDelete(index,row) {
-      positiondelete({ positionId: row.positionId })
+      PositionTypedelete({ id: row.positionTypeId })
       this.$confirm(this.$i18n.t('btn.delete'), "提示", {
         confirmButtonText: this.$i18n.t('btn.confirm'),
         cancelButtonText: this.$i18n.t('btn.cancle'),
@@ -118,15 +114,15 @@ export default {
         
     },
     search() {
-      findJobByParams(this.searchParams, this.page)
-        .then(r => {
-          this.tableData = r.list;
-          this.pagesize = r.pageSize;
-          this.total = r.total;
-        })
-        .catch(e => {
-          console.dir(e);
-        });
+      // findJobByParams(this.searchParams, this.page)
+      //   .then(r => {
+      //     this.tableData = r.list;
+      //     this.pagesize = r.pageSize;
+      //     this.total = r.total;
+      //   })
+      //   .catch(e => {
+      //     console.dir(e);
+      //   });
     },
     // 确定删除
     // deleteRow() {
@@ -181,7 +177,7 @@ export default {
     }
   },
   created() {
-    findJob(this.page)
+    findPositionType(this.page)
       .then(r => {
         this.tableData = r.list;
         this.pagesize = r.pageSize;

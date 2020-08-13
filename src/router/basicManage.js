@@ -35,5 +35,23 @@ export default {
       component: (resolve) =>
         require(["@/views/BasicManage/Jobs/Index.vue"], resolve),
     },
+    {
+      path: "positionType",
+      name: "positionTypeManage",
+      meta: {
+        title: "岗位类型管理",
+      },
+      component: (resolve) =>
+        require(["@/views/BasicManage/positionType/Index.vue"], resolve),
+    },
+    {
+      path: "departType",
+      name: "departTypeManage",
+      meta: {
+        title: "部门类型管理",
+      },
+      component: (resolve) =>
+        require(["@/views/BasicManage/departType/Index.vue"], resolve),
+    },
   ],
 };

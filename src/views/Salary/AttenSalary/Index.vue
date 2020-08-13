@@ -2,14 +2,14 @@
   <div>
     <ToolBar>
       <div>
-        <el-button type="primary" size="small" @click="add">{{$t('btn.add')}}</el-button>
+        <el-button type="primary" size="small" @click="add">添加</el-button>
         <el-button type="primary" size="small" @click="exportTable"
-          >{{$t('btn.exportTable')}}</el-button
+          >本地导出表格</el-button
         >
       </div>
       <div>
         <el-input
-          :placeholder="this.$i18n.t('btn.input')"
+          placeholder="请输入参数"
           size="small"
           style="width: 140px"
           v-model="searchParams.title"
@@ -18,62 +18,73 @@
         <el-select
           v-model="searchParams.type"
           style="width: 140px"
+          placeholder="请选择类型"
           size="small"
         >
-          <el-option :label="this.$i18n.t('basicManage.department.departId')" value="id"></el-option>
-          <el-option :label="this.$i18n.t('basicManage.department.departName')" value="name"></el-option>
+          <el-option label="编号" value="id"></el-option>
+          <el-option label="部门名称" value="name"></el-option>
         </el-select>
         <el-button type="success" size="small" @click="search()"
-          >{{$t('btn.select')}}</el-button
+          >查询</el-button
         >
         <el-button type="warning" size="small" @click="clearSearchParams()"
-          >{{$t('btn.reset')}}</el-button
+          >重置</el-button
         >
       </div>
     </ToolBar>
     <div>
+      <!-- 
+        员工编号  staff_id
+        员工姓名  staff_name
+        部门名    depart_name
+        导入日期  
+        病假天数  sickday
+        事假      affairday
+        迟到次数  lateday
+        加班天数  overday
+        补发      reissue
+       -->
       <el-table ref="filterTable" :data="tableData" style="width: 100%">
-        <el-table-column prop="departId" :label="this.$i18n.t('basicManage.department.departId')"></el-table-column>
-        <el-table-column prop="departName" :label="this.$i18n.t('basicManage.department.departName')"></el-table-column>
-        <el-table-column prop="departPhone" :label="this.$i18n.t('basicManage.department.departPhone')"></el-table-column>
-        <el-table-column prop="description" :label="this.$i18n.t('basicManage.department.description')"></el-table-column>
+        <el-table-column prop="departId" label="部门编号"></el-table-column>
+        <el-table-column prop="departName" label="部门名称"></el-table-column>
+        <el-table-column prop="departPhone" label="部门电话"></el-table-column>
+        <el-table-column prop="description" label="部门描述"></el-table-column>
         <el-table-column
           prop="establishDate"
-          :label="this.$i18n.t('basicManage.department.establishDate')"
-          sortable
+          label="建立日期"
         ></el-table-column>
-        <el-table-column prop="fax" :label="this.$i18n.t('basicManage.department.fax')"></el-table-column>
-        <el-table-column prop="type" :label="this.$i18n.t('basicManage.department.type')"></el-table-column>
-        <el-table-column prop="fatherDepartName" :label="this.$i18n.t('basicManage.department.fatherDepartName')">
+        <el-table-column prop="fax" label="部门传真"></el-table-column>
+        <el-table-column prop="type" label="部门类型"></el-table-column>
+        <el-table-column prop="fatherDepartName" label="父部门">
           <template slot-scope="scope">
             <p v-if="scope.row.fatherDepartName != null">
               {{ scope.row.fatherDepartName }}
             </p>
-            <p v-else>{{$t('msg.null')}}</p>
+            <p v-else>无</p>
           </template>
         </el-table-column>
         <el-table-column>
           <template slot-scope="scope">
             <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-              >{{$t('btn.edit')}}</el-button
+              >编辑</el-button
             >
             <el-button
               size="mini"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
-              >{{$t('btn.delete')}}</el-button
+              >删除</el-button
             >
           </template>
         </el-table-column>
       </el-table>
     </div>
-    <Edit
+    <!-- <Edit
       :forms="form"
       :title="editTitle"
       :showEditDialog="showEditDialog"
       @close="showEditDialog = false"
-      @editSuccess="editSuccess"
-    />
+      @editSuccess='editSuccess'
+    /> -->
     <el-pagination
       layout="sizes,prev, pager, next"
       @current-change="changePage"
@@ -87,15 +98,16 @@
 </template>
 
 <script>
-import { exportCvsTable } from "@/utils/cvs";
-import { delDepartById } from "@/api/BasicManage/depart";
-import Edit from "./Edit";
+import { exportCvsTable } from "@/utils/cvs"
+import {delDepartById} from "@/api/BasicManage/depart"
 import {
   findDepartment,
   findDepartmentByParams,
 } from "@/api/BasicManage/depart";
+
+import {} from "@/api/salary/attenSalary"
 export default {
-  components: { Edit }, //导入组件
+  // components: { Edit }, //导入组件
   data() {
     return {
       showEditDialog: false,
@@ -106,7 +118,7 @@ export default {
       },
       total: 0,
       pagesize: 10,
-      editTitle: this.$i18n.t('btn.edit'),
+      editTitle: "编辑",
       page: {
         startPage: 1,
         pageSize: 10,
@@ -120,11 +132,11 @@ export default {
     },
     //添加部门
     add() {
-      this.editTitle = this.$i18n.t('btn.add');
+      this.editTitle = "添加";
       this.showEditDialog = true;
     },
     handleEdit(index, row) {
-      this.editTitle = this.$i18n.t('btn.edit');
+      this.editTitle = "编辑";
       this.showEditDialog = true;
       this.form = row;
     },
@@ -132,7 +144,6 @@ export default {
       let params = {departId:row.departId};
       delDepartById(params)
       .then((r)=>{
-        console.log(r);
         this.getTable()
       })
       

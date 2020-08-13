@@ -5,7 +5,9 @@
         <el-button type="primary" size="small" @click="add">{{$t('btn.add')}}</el-button>
         <el-button type="primary" size="small" @click="exportTable">{{$t('btn.exportTable')}}</el-button>
       </div>
-      <div>
+      <div>  
+      </div>
+       <div>
         <el-input
           :placeholder="this.$i18n.t('btn.input')"
           size="small"
@@ -20,8 +22,7 @@
           placeholder="请选择类型"
           size="small"
         >
-          <el-option :label="this.$i18n.t('basicManage.position.positionName')" value="name"></el-option>
-          <el-option :label="this.$i18n.t('basicManage.position.type')" value="type1"></el-option>
+          <el-option  :label="this.$i18n.t('Salary.formula.formulaName')" value="name"></el-option>
         </el-select>
         <el-button type="success" size="small" @click="search()">{{$t('btn.select')}}</el-button>
         <el-button type="warning" size="small" @click="clearSearchParams()">{{$t('btn.reset')}}</el-button>
@@ -29,11 +30,9 @@
     </ToolBar>
     <div>
       <el-table ref="filterTable" :data="tableData" style="width: 100%">
-        <el-table-column prop="positionId" :label="this.$i18n.t('basicManage.position.positionId')" sortable></el-table-column>
-        <el-table-column prop="positionName" :label="this.$i18n.t('basicManage.position.positionName')"></el-table-column>
-        <el-table-column prop="positionMan" :label="this.$i18n.t('basicManage.position.positionMan')"></el-table-column>
-        <el-table-column prop="departName" :label="this.$i18n.t('basicManage.position.departName')"></el-table-column>
-        <el-table-column prop="type" :label="this.$i18n.t('basicManage.position.type')"></el-table-column>
+        <el-table-column prop="formulaId" :label="this.$i18n.t('Salary.formula.formulaId')" sortable></el-table-column>
+        <el-table-column prop="formulaName" :label="this.$i18n.t('Salary.formula.formulaName')"></el-table-column>
+        <el-table-column prop="formulaPercentage" :label="this.$i18n.t('Salary.formula.formulaPercentage')"></el-table-column>
         <el-table-column>
           <template slot-scope="scope">
             <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">{{$t('btn.edit')}}</el-button>
@@ -62,7 +61,7 @@
 <script>
 import { exportCvsTable } from "@/utils/cvs";
 import Edit from "./Edit";
-import { findJob, findJobByParams, positiondelete } from "@/api/BasicManage/job.js";
+import { findCaculate,findCaculateByParams, calculatedelete } from "@/api/salary/calculateSalary.js";
 export default {
   components: { Edit }, //导入组件
   data() {
@@ -100,7 +99,7 @@ export default {
       console.log(this.form);
     },
     handleDelete(index,row) {
-      positiondelete({ positionId: row.positionId })
+      calculatedelete({ formulaId: row.formulaId })
       this.$confirm(this.$i18n.t('btn.delete'), "提示", {
         confirmButtonText: this.$i18n.t('btn.confirm'),
         cancelButtonText: this.$i18n.t('btn.cancle'),
@@ -118,7 +117,7 @@ export default {
         
     },
     search() {
-      findJobByParams(this.searchParams, this.page)
+      findCaculateByParams(this.searchParams, this.page)
         .then(r => {
           this.tableData = r.list;
           this.pagesize = r.pageSize;
@@ -181,7 +180,7 @@ export default {
     }
   },
   created() {
-    findJob(this.page)
+    findCaculate(this.page)
       .then(r => {
         this.tableData = r.list;
         this.pagesize = r.pageSize;

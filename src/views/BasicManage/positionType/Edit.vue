@@ -15,42 +15,8 @@
       label-position="left"
       :label-width="labelWidth"
     >
-      <!-- 岗位名称，岗位编制 部门名称 岗位类型 -->
-      <el-form-item :label="this.$i18n.t('basicManage.position.positionName')" prop="positionName">
-        <el-input v-model="form.positionName"></el-input>
-      </el-form-item>
-      <!-- <el-form-item label="浮点（2位）" prop="test">
-        <el-input
-          v-model="forms.test"
-          placeholder="非必填的浮点（2位）字符串规则验证"
-        ></el-input>
-      </el-form-item>-->
-
-
-      <el-form-item :label="this.$i18n.t('basicManage.position.positionMan')" prop="positionMan">
-        <el-input v-model="form.positionMan"></el-input>
-      </el-form-item>
-
-       <el-form-item :label="this.$i18n.t('basicManage.position.departName')" prop="departName">
-        <el-select v-model="form.departId" :placeholder="this.$i18n.t('btn.selectType')">
-          <el-option
-            v-for="item in optionc"
-            :key="item.departId"
-            :label="item.departName"
-            :value="item.departId"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-form-item :label="this.$i18n.t('basicManage.position.type')" prop="type">
-        <el-select v-model="form.positionTypeId" :placeholder="this.$i18n.t('btn.selectType')">
-          <el-option
-            v-for="item in options"
-            :key="item.positionTypeId"
-            :label="item.type"
-            :value="item.positionTypeId"
-          ></el-option>
-        </el-select>
+      <el-form-item :label="this.$i18n.t('positionType.poType.type')" prop="type">
+        <el-input v-model="form.type"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -69,7 +35,7 @@ import {
 } from "@/utils/validateRules";
 
 import { fillerLeft } from "@/utils/common";
-import { findJobType, findDepartName,addJob,updateOneJob } from "@/api/BasicManage/job";
+import { addfindPositionType,updatePositionType } from "@/api/BasicManage/positionType.js";
 export default {
   props: {
     title: {
@@ -90,18 +56,11 @@ export default {
   data() {
     return {
       form: {
-        positionId: "",
-        positionMan: 0,
-        positionName: "",
-        departId: 0,
-        departName: "",
-        positionTypeId: 0,
+        positionTypeId: "",
         type: "",
       },
-      options: [],
-      optionc: [],
       rules: {
-        ...FillerFieldRules(["positionName"], Required),
+        ...FillerFieldRules(["type"], Required),
         // phone: RequiredAndPhone, //or [Required, Phone]
         url: [Required, Url],
         password: [Required, StrongPassword]
@@ -117,7 +76,7 @@ export default {
             type: "success"
           });
            if(this.title ==='编辑' || this.title ==='Edit') {
-            updateOneJob(this.form)
+            updatePositionType(this.form)
             .then((r) =>{
               console.log(r);
             })
@@ -126,7 +85,7 @@ export default {
               console.log(e);
             }))
           }else{
-            addJob(this.form)
+            addfindPositionType(this.form)
             .then((r) => {
               console.log(r);
               
@@ -149,22 +108,15 @@ export default {
     },
     openDialog() {
       console.log(this.title);
-      console.log(this.forms.positionId);
+      console.log(this.forms.positionTypeId);
       if (this.title === "添加") {
         this.form = {
-        positionId: "",
-        positionMan: 0,
-        positionName: "",
-        departId: "",
-        departName: "",
-        positionTypeId: '',
+        positionTypeId: "",
         type: ""
         };
          console.log("重置");
         // resetObject(this.forms);
         // this.$set(this.forms, "id", null);
-        this.$set(this.form, "positionTypeId", this.options[0].positionTypeId);
-        this.$set(this.form, "departId", this.optionc[0].departId);
         } else {
         this.form = this.forms;//清空
       }
@@ -172,30 +124,11 @@ export default {
     FillerFormField(id, data) {
       console.log("FillerFormField");
       //可以外部填充回写做编辑用，也可以请求详情接口填充表单
-      this.$set(this.forms, "positionId", id);
+      this.$set(this.forms, "positionTypeId", id);
       fillerLeft(this.forms, data);
     }
   },
   created() {
-    let params = { startPage: 1, pageSize: 1000 };
-    let params1 = { startPage: 1, pageSize: 1000 };
-    findJobType(params)
-      .then((r) => {
-        this.options = r;
-        this.forms.type = r.list[0].positionTypeId;
-      })
-      .catch((e) => {
-        console.dir(e);
-      });
-    findDepartName(params1)
-    .then((r) => {
-        this.optionc = r;
-        this.forms.departName = r.list[0].departId;
-      })
-      .catch((e) => {
-        console.log("111");
-        console.dir(e);
-      });
   },
 };
 </script>

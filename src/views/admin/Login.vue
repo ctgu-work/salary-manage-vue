@@ -1,12 +1,12 @@
 <template>
   <div id="poster">
     <el-form ref="form" :model="form" :rules="rule" class="login-box">
-      <h3 class="login-title">登录系统</h3>
+      <h3 class="login-title">{{$t('login.formtitle')}}</h3>
       <el-form-item prop="username">
         <el-input
           suffix-icon="el-icon-user-solid"
           type="text"
-          placeholder="账号"
+          :placeholder="this.$i18n.t('login.username')"
           v-model="form.username"
           :validate-event="false"
         ></el-input>
@@ -15,15 +15,15 @@
         <el-input
           suffix-icon="el-icon-lock"
           type="password"
-          placeholder="密码"
+          :placeholder="this.$i18n.t('login.password')"
           v-model="form.password"
           :validate-event="false"
         ></el-input>
       </el-form-item>
-      <p v-if="msg != ''" class="error_msg">用户名或密码错误！</p>
+      <p v-if="msg != ''" class="error_msg">{{$t('login.msg.wronglogin')}}</p>
       <el-form-item>
         <el-button class="login-button" type="primary" @click="onSubmit(form)"
-          >登录</el-button
+          >{{$t('login.subbtn')}}</el-button
         >
       </el-form-item>
     </el-form>
@@ -32,7 +32,7 @@
 <script>
 import { setToken } from "@/utils/common";
 import { login } from "@/api/login/login";
-import { Notification, Loading } from "element-ui";
+// import { Notification, Loading } from "element-ui";
 export default {
   data() {
     return {
@@ -42,10 +42,10 @@ export default {
         password: "",
       },
       rule: {
-        username: [{ required: true, message: "请输入姓名" }],
+        username: [{ required: true, message: this.$i18n.t('login.msg.nullusername') }],
         password: [
-          { required: true, message: "请输入密码" },
-          { min: 6, max: 10, message: "密码长度为6-10位" },
+          { required: true, message: this.$i18n.t('login.msg.nullpassword') },
+          { min: 6, max: 10, message: this.$i18n.t('login.msg.illegalpassword') },
         ],
       },
     };
