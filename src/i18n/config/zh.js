@@ -70,6 +70,18 @@ const zh = {
             type: '岗位类型',
         }
     },
+    CalcSalary:{
+        CSalary: {//岗位词汇
+            calcSalaryId: '工资项目名',
+            staffId: '员工ID',
+            staffName: '员工名',
+            calcItemId: '计算条目ID',
+            calcItemName: '计算条目名',
+            formulaId: '公式ID',
+            formulaName: '公式名',
+            formulaPercentage:'公式百分比',
+        }
+    },
     btn: {//按钮统一再次声明
         add: '添加',
         select: '查询',

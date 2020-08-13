@@ -7,26 +7,18 @@
       <el-col :span="5">
         <div class="grid-content bg-purple-light left">
           <div class="left-1">
-            <el-avatar
-              shape="square"
-              :size="100"
-              :fit="fit"
-              :src="fileList[0].url"
-            ></el-avatar>
-            <div class="imgui" >
+            <div class="imgui" style="color:white;" >
               <el-upload
-                class="upload-demo"
+                class="upload-demo avater-uploader"
+                name="avatar"
                 :show-file-list="false"
-                action=""
-                name="file"
+                :action="useApiUrl+'/staff/avatar'"
                 :before-upload="beforeAvatarUpload"
-                :on-change="handleChange"
                 :on-success="handleAvatarSuccess"  
                 accept=".jpg, .png, .JPG"
                 >
-                <img v-if="forms.url" :src="forms.url" class="avater"/>
+                <img v-if="forms.url" :src="forms.url" class="avater" style="width:140px;height:140px; border-radius:50%; overflow:hidden;"/>
                 <i v-else class="el-icon-plus avater-uploader-icon"></i>
-                <el-button size="small" type="primary">点击上传</el-button>
               </el-upload>
             </div>
             <div class="left-1end">
@@ -382,6 +374,7 @@
 </template>
 <script>
 import { uplode } from "@/api/BasicManage/upload";
+import { useApiUrl } from "@/config/apiUrl";
 export default {
   name: 'imgUpload',
   data() {
@@ -443,24 +436,30 @@ export default {
            url: ""
          }
        ],
+       useApiUrl:useApiUrl
     };
   },
   methods: {
     // 图片上传前验证
     beforeAvatarUpload (file) {
-        const isLt2M = file.size / 1024 / 1024 < 2
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!')
-        }
-        return isLt2M
+        // const isLt2M = file.size / 1024 / 1024 < 2
+        // if (!isLt2M) {
+        //   this.$message.error('上传头像图片大小不能超过 2MB!')
+        // }
+        // return isLt2M
       },
     handleAvatarSuccess(res,file) {
-      if(file.response.status == 'success')
-      this.forms.url = URL.createObjectURL(File.raw)
+      console.log(res);
+      console.log(file);
+      if(file.response.msg == 'success')
+        console.log('sucesss');
+         this.forms.url = res.result;
     },
     handleChange(file){
       var multipartFile = new FormData();
-      multipartFile.append('file', file);
+      // let self = this;
+      // multipartFile.append('image_data', self.$refs.file[0]);
+      multipartFile.append("file",file);
       uplode(multipartFile)
         .then((r) => {
                 

@@ -32,7 +32,7 @@ export default {
         title: "计算项目管理",
       },
       component: (resolve) =>
-        require(["@/views/Salary/CaculateContent/Index.vue"], resolve),
+        require(["@/views/Salary/CalculateShow/Index.vue"], resolve),
     },
     {
       path: "show",

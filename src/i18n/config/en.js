@@ -52,6 +52,18 @@ const en = {
             type: 'type',
         }
     },
+    CalcSalary:{
+        CSalary: {//岗位词汇
+            calcSalaryId: 'calcSalary-Id',
+            staffId: 'staff-Id',
+            staffName: 'staff-Name',
+            calcItemId: 'calcItem-Id',
+            calcItemName: 'calcItem-Name',
+            formulaId: 'formula-Id',
+            formulaName: 'formulaName',
+            formulaPercentage:'formulaPercentage',
+        }
+    },
     btn: {
         add: 'Add',
         select: 'Select',
