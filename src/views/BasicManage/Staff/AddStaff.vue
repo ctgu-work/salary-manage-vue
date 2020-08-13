@@ -13,17 +13,19 @@
               :fit="fit"
               :src="fileList[0].url"
             ></el-avatar>
-            <div class="imgui">
+            <div class="imgui" >
               <el-upload
                 class="upload-demo"
                 :show-file-list="false"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                name="files"
-                :file-list="fileList"
+                action=""
+                name="file"
+                :before-upload="beforeAvatarUpload"
                 :on-change="handleChange"
-                :on-success="handleAvatarSuccess"
+                :on-success="handleAvatarSuccess"  
                 accept=".jpg, .png, .JPG"
-              >
+                >
+                <img v-if="forms.url" :src="forms.url" class="avater"/>
+                <i v-else class="el-icon-plus avater-uploader-icon"></i>
                 <el-button size="small" type="primary">点击上传</el-button>
               </el-upload>
             </div>
@@ -379,10 +381,15 @@
   </div>
 </template>
 <script>
+import { uplode } from "@/api/BasicManage/upload";
 export default {
+  name: 'imgUpload',
   data() {
     //血型
     return {
+      forms:{
+        url:""
+      },
       userList: [0],
       user: ["A", "B", "AB", "O", "其他"],
       userList1: [0],
@@ -439,11 +446,28 @@ export default {
     };
   },
   methods: {
-    handleAvatarSuccess(file) {
-      this.file.url = URL.createObjectURL(file.url);
+    // 图片上传前验证
+    beforeAvatarUpload (file) {
+        const isLt2M = file.size / 1024 / 1024 < 2
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!')
+        }
+        return isLt2M
+      },
+    handleAvatarSuccess(res,file) {
+      if(file.response.status == 'success')
+      this.forms.url = URL.createObjectURL(File.raw)
     },
-    handleChange(file) {
-      console.log(file);
+    handleChange(file){
+      var multipartFile = new FormData();
+      multipartFile.append('file', file);
+      uplode(multipartFile)
+        .then((r) => {
+                
+          })
+          .catch((e) => {
+            console.log(e);
+        });
     },
     groupChange1() {
       console.log("变化", this.userList1);

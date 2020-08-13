@@ -38,7 +38,7 @@ export default {
       path: "show",
       name: "calculateShow",
       meta: {
-        title: "员工工资展示",
+        title: "计算项目展示",
       },
       component: (resolve) =>
         require(["@/views/Salary/CalculateShow/Index.vue"], resolve),
