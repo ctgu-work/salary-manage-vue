@@ -7,7 +7,7 @@ export default {
     courseCardList: {
       name: "员工信息管理",
       permissionsKey: "",
-      path: "/info/stuff"
+      path: "/info/staff"
     },
     departCardList: {
       name: "部门管理",
@@ -18,6 +18,16 @@ export default {
       name: "岗位管理",
       permissionsKey: "",
       path: "/info/jobs"
+    },
+    positionType: {
+      name: "岗位类型管理",
+      permissionsKey: "",
+      path: "/info/positionType"
+    },
+    departType: {
+      name: "部门类型管理",
+      permissionsKey: "",
+      path: "/info/departType"
     }
   }
 };

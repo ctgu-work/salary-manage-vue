@@ -33,7 +33,7 @@ const zh = {
     basicManage: {//基础信息管理
         department: {//部门词汇
             departId: '部门编号',
-            departName: '部门编号',
+            departName: '部门名称',
             departPhone: '部门电话',
             description: '部门描述',
             establishDate: '建立日期',
@@ -58,7 +58,18 @@ const zh = {
             formulaPercentage: '计算条目百分比',
         }
     },
-
+    departType:{
+        departmentType: {//部门词汇
+            departTypeId: '部门类型ID',
+            type: '部门类型',
+        }
+    },
+    positionType:{
+        poType: {//岗位词汇
+            positionTypeId: '岗位类型ID',
+            type: '岗位类型',
+        }
+    },
     btn: {//按钮统一再次声明
         add: '添加',
         select: '查询',
