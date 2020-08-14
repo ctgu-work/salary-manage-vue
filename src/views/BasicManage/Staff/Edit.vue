@@ -170,6 +170,19 @@
         >
         </el-date-picker>
       </el-form-item>
+      <h1>上传图片</h1>
+      <el-upload
+                class="upload-demo avater-uploader"
+                name="avatar"
+                :show-file-list="false"
+                :action="useApiUrl+'/staff/avatar'"
+                :before-upload="beforeAvatarUpload"
+                :on-success="handleAvatarSuccess"  
+                accept=".jpg, .png, .JPG"
+                >
+                <img v-if="form.avatar" :src="form.avatar" prop="avatar" class="avater" style="width:140px;height:140px; border-radius:50%; overflow:hidden;"/>
+                <i v-else class="el-icon-plus avater-uploader-icon"></i>
+        </el-upload>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="$emit('close')">取 消</el-button>
@@ -188,6 +201,7 @@ import {
 } from "@/utils/validateRules";
 
 import { fillerLeft, resetObject } from "@/utils/common";
+import { useApiUrl } from "@/config/apiUrl";
 import {
   updateOneStaff,
   departAllPosition,
@@ -326,9 +340,17 @@ export default {
         url: [Required, Url],
         password: [Required, StrongPassword],
       },
+    useApiUrl:useApiUrl
     };
   },
   methods: {
+    handleAvatarSuccess(res,file) {
+      console.log(res);
+      console.log(file);
+      if(file.response.msg == 'success')
+        console.log('sucesss');
+         this.form.avatar = res.result;
+    },
     submit() {
       this.$refs.editForms.validate((valid) => {
         if (valid) {
@@ -345,6 +367,7 @@ export default {
                 console.log(e);
               });
           } else {
+            
             addStaff(this.form)
               .then((r) => {
                 console.log(r);

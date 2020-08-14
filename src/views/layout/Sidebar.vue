@@ -93,7 +93,7 @@ export default {
     position: relative;
     width: 100%;
     height: $--top-height;
-    background-color: mix(#000, $--color-primary, 10%);
+    background-color: mix(#FF9900, $--color-primary, 10%);
     color: #fff;
     cursor: pointer;
     .icon-left {
