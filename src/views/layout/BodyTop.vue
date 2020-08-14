@@ -32,14 +32,14 @@
         </el-badge>
       </span>
 
-      <el-dropdown @command='changeLang'>
+      <el-dropdown @command="changeLang">
         <span class="body-top-btn">
           选择语言
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
-        <el-dropdown-menu  slot="dropdown">
-          <el-dropdown-item command='zh' icon="el-icon-plus">中文</el-dropdown-item>
-          <el-dropdown-item command='en' icon="el-icon-circle-plus">English</el-dropdown-item>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="zh" icon="el-icon-plus">中文</el-dropdown-item>
+          <el-dropdown-item command="en" icon="el-icon-circle-plus">English</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
 
@@ -65,6 +65,7 @@
 import ScreenFull from "screenfull";
 import { mapState } from "vuex";
 import Menu from "@/menu/index";
+import { removeToken } from "@/utils/common";
 
 export default {
   name: "BodyTop",
@@ -88,12 +89,17 @@ export default {
           });
         });
     },
-    logout() {},
+    logout() {
+      removeToken().then((res)=>{
+        this.$router.go(0);
+      })
+      // this.$router.push("/");
+    },
     //语言切换
-    changeLang(command){
+    changeLang(command) {
       // console.log('1');
       // console.log(command);
-      this.$i18n.locale= command
+      this.$i18n.locale = command;
     }
   },
   computed: mapState(["system"])

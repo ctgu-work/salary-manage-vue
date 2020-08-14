@@ -1,32 +1,49 @@
 <template>
   <div>
-
+    <ToolBar>
+      <div>
+        <el-select v-model="departId" style="width: 140px" size="small">
+          <el-option
+            v-for="item in options"
+            :key="item.departId"
+            :label="item.departName"
+            :value="item.departId"
+          ></el-option>
+        </el-select>
+        <el-button type="success" size="small" @click="search()">{{$t('btn.select')}}</el-button>
+        <!-- <el-button type="warning" size="small" @click="clearSearchParams()"
+          >{{$t('btn.reset')}}</el-button
+        >-->
+      </div>
+    </ToolBar>
     <div>
       <el-table ref="filterTable" :data="tableData" style="width: 100%">
-        <el-table-column type="expand">
-          <template slot-scope="props">
-            <el-form label-position="left" inline class="demo-table-expand" v-for="(value) in props.row.formulaCal" :key="value.id" >
+         <el-table-column prop="wageId" label="工资编号"></el-table-column>
+        <el-table-column prop="departId" label="员工编号"></el-table-column>
+        <el-table-column prop="departName" label="员工姓名"></el-table-column>
+        <el-table-column prop="departName" label="员工部门"></el-table-column>
+        <el-table-column prop="fixedSalary" label="固定工资"></el-table-column>
+        <el-table-column prop="calcSalary" label="计算项目工资"></el-table-column>
+        <el-table-column prop="rewardPunishSalary" label="导入项目工资"></el-table-column>
+        <el-table-column prop="totalSalary" label="总工资"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间"></el-table-column>
+        <el-table-column prop="fatherDepartName" label="是否结算">
+          <template slot-scope="scope">
+            <!-- <p >
+              未结算
+            </p>-->
 
-              <el-form-item :label="value.calcItemName" >
-                <span>{{ value.formulaPercentage }}%</span>
-              </el-form-item>
-
-            </el-form>
+            <el-button
+              v-if="scope.row.status == 0"
+              type="success"
+              size="small"
+              @click="updateSalary(scope.row.wageId)"
+            >结算</el-button>
+            <p v-else>已结算</p>
           </template>
         </el-table-column>
-        <el-table-column prop="wageId" label="工资编号"></el-table-column>
-        <el-table-column prop="staffId" label="员工编号"></el-table-column>
-        <el-table-column prop="basicSalary" label="固定项目工资"></el-table-column>
-        <el-table-column prop="basicSalary" label="基本工资"></el-table-column>
-        <el-table-column prop="subsidy" label="补贴"></el-table-column>
-        <el-table-column prop="rpMoney" label="导入项目"></el-table-column>
-        <el-table-column prop="updateTime" label="结算时间"></el-table-column>
-        <el-table-column prop="totalSalary" label="总工资"></el-table-column>
-
-
       </el-table>
     </div>
-
     <el-pagination
       layout="sizes,prev, pager, next"
       @current-change="changePage"
@@ -40,20 +57,19 @@
 
 <script>
 import { exportCvsTable } from "@/utils/cvs";
-import { delDepartById } from "@/api/BasicManage/depart";
-// import Edit from "./Edit";
+import { findDepartmentName } from "@/api/BasicManage/depart";
+import { getSalary, updateSalaryStatus } from "@/api/salary/total";
 import {
   findDepartment,
   findDepartmentByParams
 } from "@/api/BasicManage/depart";
-
-import { getFormula } from "@/api/formula/deptFormula";
 export default {
-  //   components: { Edit }, //导入组件
   data() {
     return {
+      departId: "",
       showEditDialog: false,
       tableData: [],
+      options: [],
       searchParams: {
         title: "",
         type: "name"
@@ -69,6 +85,15 @@ export default {
     };
   },
   methods: {
+    updateSalary(id) {
+      updateSalaryStatus({status:1,wageId:id})
+      .then((r)=>{
+        this.getTable()
+      })
+      .catch((e)=>{
+
+      })
+    },
     editSuccess() {
       this.getTable();
     },
@@ -90,7 +115,7 @@ export default {
       });
     },
     search() {
-      findDepartmentByParams(this.searchParams, this.page)
+      getSalary(this.page, this.departId)
         .then(r => {
           this.tableData = r.list;
           this.pagesize = r.pageSize;
@@ -101,7 +126,7 @@ export default {
         });
     },
     getTable() {
-      getFormula(this.page)
+      getSalary(this.page, this.departId)
         .then(r => {
           this.tableData = r.list;
           this.pagesize = r.pageSize;
@@ -150,7 +175,12 @@ export default {
     }
   },
   created() {
-    this.getTable();
+    findDepartmentName().then(r => {
+      console.log(r);
+      this.options = r;
+      this.departId = r[0].departId;
+      this.getTable();
+    });
   }
 };
 </script>

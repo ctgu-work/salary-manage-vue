@@ -87,3 +87,11 @@ export function delDepartById(params) {
     params: params
   })
 }
+
+
+export function findDepartmentName(){
+  return request({
+    url:'depart/name-list',
+    method:'get',
+  })
+}

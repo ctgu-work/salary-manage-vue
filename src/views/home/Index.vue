@@ -10,6 +10,7 @@
             <div class="grid-content ">
               <div style="background: #673AB7">
                 <i class="el-icon-location-outline index-icon"></i>
+
                 <span>员工数：{{ num.staff }}</span>
               </div>
             </div>
@@ -18,9 +19,7 @@
             <div class="grid-content ">
               <div style="padding: 10px;background: #3c8dbc">
                 <i class="el-icon-picture index-icon"></i>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Dignissimos earum enim fugiat illum iusto minus modi nam natus
-                nisi sequi!
+                2
               </div>
             </div>
           </el-col> -->
@@ -28,6 +27,7 @@
             <div class="grid-content ">
               <div style="background: #009688">
                 <i class="el-icon-service index-icon"></i>
+
                 <span>部门数：{{ num.depart }}</span>
               </div>
             </div>
@@ -36,6 +36,7 @@
             <div class="grid-content ">
               <div style="background: #607D8B">
                 <i class="el-icon-bell index-icon"></i>
+
                 <span>岗位数：{{ num.position }}</span>
               </div>
             </div>
@@ -50,6 +51,7 @@
       </div>
 
       <el-row>
+
         <el-col :span="24">
           <div id="main" style="width: 100%;height: 400px;"></div>
         </el-col>
