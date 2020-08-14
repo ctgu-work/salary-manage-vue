@@ -47,7 +47,7 @@ import {
   findDepartmentByParams
 } from "@/api/BasicManage/depart";
 
-import { getFormula } from "@/api/formula/formula";
+import { getFormula } from "@/api/formula/deptFormula";
 export default {
   //   components: { Edit }, //导入组件
   data() {

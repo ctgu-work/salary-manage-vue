@@ -1,7 +1,7 @@
 const devApiUrl = "http://localhost:8081"; //本地开发环境
-const buildDevApiUrl = "http://192.168.48.192:9088"; //打包开发环境
-const buildTestApiUrl = "http://192.168.48.192:9188"; //打包测试环境
-const buildProApiUrl = "https://api.xxx.cn"; //打包正式环境
+const buildDevApiUrl = "https://pay.ctguqmx.cn"; //打包开发环境
+const buildTestApiUrl = "https://pay.ctguqmx.cn"; //打包测试环境
+const buildProApiUrl = "https://pay.ctguqmx.cn"; //打包正式环境
 
 let useApiUrl;
 
